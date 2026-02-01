@@ -51,166 +51,31 @@
                             class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Locations</a>
                     </li>
                     <li>
-                        <a href="javascript: void(0);" aria-expanded="false"
-                            class="block py-[6.4px] pr-6 text-sm font-medium text-gray-950 transition-all duration-150 ease-linear nav-menu pl-[52.8px] hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
-                            <span data-key="t-apps">Invoices</span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="apps-invoices-list.html"
-                                    class="pl-[52.8px] pr-6 py-[6.4px] block text-[13px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Invoice
-                                    List</a>
-                            </li>
-                            <li>
-                                <a href="apps-invoices-detail.html"
-                                    class="pl-14 pr-4  py-2 block text-[13px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Invoice
-                                    Detail</a>
-                            </li>
-                        </ul>
+                        <a href="{{ route('index.route') }}"
+                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Routes</a>
                     </li>
                     <li>
-                        <a href="javascript: void(0);" aria-expanded="false"
-                            class="block py-[6.4px] pr-6 text-sm font-medium text-gray-950 transition-all duration-150 ease-linear nav-menu pl-[52.8px] hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
-                            <span data-key="t-apps">Contacts</span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="apps-contacts-grid.html"
-                                    class="pl-[52.8px] pr-6 py-[6.4px] block text-[13px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">User
-                                    Grid</a>
-                            </li>
-                            <li>
-                                <a href="apps-contacts-list.html"
-                                    class="pl-14 pr-4  py-2 block text-[13px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">User
-                                    List</a>
-                            </li>
-                            <li>
-                                <a href="apps-contacts-profile.html"
-                                    class="pl-14 pr-4  py-2 block text-[13px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Profile</a>
-                            </li>
-                        </ul>
+                        <a href="{{ route('index.route_schedule') }}"
+                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Routes
+                            Schedule</a>
                     </li>
                     <li>
-                        <a href="javascript: void(0);" aria-expanded="false"
-                            class="flex items-center justify-between py-[6.4px] pr-6 text-sm font-medium text-gray-950 transition-all duration-150 ease-linear  pl-[52.8px] pr-6 hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
-                            <span data-key="t-apps">Blog</span>
-                            <span
-                                class="px-2 py-0.5 font-medium text-red-400 rounded-full bg-red-50 text-10 badge text-end group-data-[sidebar-size=sm]:hidden">New</span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="apps-blog-grid.html"
-                                    class="pl-[52.8px] pr-6 py-[6.4px] block text-[13px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Blog
-                                    Grid</a>
-                            </li>
-                            <li>
-                                <a href="apps-blog-list.html"
-                                    class="pl-14 pr-4  py-2 block text-[13px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Blog
-                                    List</a>
-                            </li>
-                            <li>
-                                <a href="apps-blog-detail.html"
-                                    class="pl-14 pr-4  py-2 block text-[13px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Blog
-                                    Details</a>
-                            </li>
-                        </ul>
+                        <a href="{{ route('index.route_facilitie') }}"
+                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Routes
+                            Fasilitas</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('index.wa_lead') }}"
+                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Nomor
+                            Wa</a>
                     </li>
                 </ul>
             </li>
 
 
-            <li>
-                <a href="javascript: void(0);" aria-expanded="false"
-                    class="block :rtl:pr-10 py-2.5 px-6 text-sm font-medium text-gray-950 transition-all duration-150 ease-linear nav-menu hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
-                    <i data-feather="users" fill="#545a6d33"></i>
-                    <span data-key="t-auth">Authentication</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="login.html"
-                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Login</a>
-                    </li>
-                    <li>
-                        <a href="register.html"
-                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Register</a>
-                    </li>
-                    <li>
-                        <a href="recoverpw.html"
-                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Recover
-                            Password</a>
-                    </li>
-                    <li>
-                        <a href="lock-screen.html"
-                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Lock
-                            Screen</a>
-                    </li>
-                    <li>
-                        <a href="logout.html"
-                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Log
-                            Out</a>
-                    </li>
-                    <li>
-                        <a href="confirm-mail.html"
-                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Confirm
-                            Mail</a>
-                    </li>
-                    <li>
-                        <a href="email-verification.html"
-                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Email
-                            Verification</a>
-                    </li>
-                    <li>
-                        <a href="two-step-verification.html"
-                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Two
-                            Step Verification</a>
-                    </li>
-                </ul>
-            </li>
 
-            <li>
-                <a href="javascript: void(0);" aria-expanded="false"
-                    class="block py-2.5 px-6 text-sm font-medium text-gray-950 transition-all duration-150 ease-linear nav-menu hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
-                    <i data-feather="briefcase" fill="#545a6d33"></i><span data-key="t-pages">Pages</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="starter.html"
-                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Starter
-                            Page</a>
-                    </li>
-                    <li>
-                        <a href="maintenance.html"
-                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Maintenance</a>
-                    </li>
-                    <li>
-                        <a href="coming-soon.html"
-                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Coming
-                            Soon</a>
-                    </li>
-                    <li>
-                        <a href="timeline.html"
-                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Timeline</a>
-                    </li>
-                    <li>
-                        <a href="faqs.html"
-                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">FAQs</a>
-                    </li>
-                    <li>
-                        <a href="pricing.html"
-                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Pricing</a>
-                    </li>
-                    <li>
-                        <a href="404.html"
-                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Error
-                            404</a>
-                    </li>
-                    <li>
-                        <a href="500.html"
-                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Error
-                            500</a>
-                    </li>
-                </ul>
-            </li>
+
+
             {{-- <li class="px-5 py-3 mt-2 text-xs font-medium text-gray-500 cursor-default leading-[18px] group-data-[sidebar-size=sm]:hidden"
                 data-key="t-elements">Elements</li> --}}
         </ul>

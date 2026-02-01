@@ -100,8 +100,8 @@
                                 </label>
                                 <input
                                     class="w-full placeholder:text-sm py-2 px-3 rounded border-gray-300 focus:border focus:border-violet-500 focus:ring focus:ring-violet-500/20 dark:bg-zinc-700/50 dark:border-zinc-600 dark:placeholder:text-zinc-100 dark:text-zinc-100 @error('password') border-red-500 @enderror"
-                                    type="password" id="password" name="password"
-                                    placeholder="Masukkan password Anda" required>
+                                    type="password" id="password" name="password" placeholder="Masukkan password Anda"
+                                    required>
                                 @error('password')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
@@ -113,7 +113,8 @@
                                     <input type="checkbox" id="remember" name="remember"
                                         {{ old('remember') ? 'checked' : '' }}
                                         class="w-4 h-4 text-violet-600 bg-gray-100 border-gray-300 rounded focus:ring-violet-500 dark:focus:ring-violet-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="remember" class="ml-2 text-sm font-medium text-gray-700 dark:text-gray-100">
+                                    <label for="remember"
+                                        class="ml-2 text-sm font-medium text-gray-700 dark:text-gray-100">
                                         Ingat Saya
                                     </label>
                                 </div>
@@ -129,12 +130,12 @@
 
                             <!-- Forgot Password -->
                             @if (Route::has('password.request'))
-                                <div class="text-center">
+                                {{-- <div class="text-center">
                                     <a href="{{ route('password.request') }}"
                                         class="text-sm text-violet-600 hover:text-violet-700 dark:text-violet-400 dark:hover:text-violet-300">
                                         <i data-feather="help-circle" class="inline h-4 w-4 mr-1"></i>Lupa Password?
                                     </a>
-                                </div>
+                                </div> --}}
                             @endif
                         </form>
                     </div>

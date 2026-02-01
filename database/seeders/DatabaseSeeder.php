@@ -30,6 +30,9 @@ class DatabaseSeeder extends Seeder
             SettingSeeder::class,
             PageSeeder::class,
             PostSeeder::class,
+            ServiceSeeder::class,
+            LocationSeeder::class,
+            RouteSeeder::class,
         ]);
     }
 }

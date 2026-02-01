@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //table users tambah kolom role, is_active, last_login_at after remember_token
+        // table users tambah kolom role, is_active, last_login_at after remember_token
         Schema::table('users', function (Blueprint $table) {
             $table->enum('role', ['owner', 'admin', 'editor'])->after('passwrd');
             $table->boolean('is_active')->default(true)->after('role');

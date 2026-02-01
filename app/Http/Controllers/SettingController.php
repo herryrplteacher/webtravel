@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSettingRequest;
+use App\Http\Requests\UpdateSettingRequest;
 use App\Models\Setting;
-use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
@@ -12,7 +13,9 @@ class SettingController extends Controller
      */
     public function index()
     {
-        //
+        $settings = Setting::latest()->get();
+
+        return view('admin.settings.index', compact('settings'));
     }
 
     /**
@@ -20,15 +23,18 @@ class SettingController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.settings.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreSettingRequest $request)
     {
-        //
+        Setting::create($request->validated());
+
+        return redirect()->route('index.setting')
+            ->with('success', 'Setting berhasil ditambahkan.');
     }
 
     /**
@@ -36,7 +42,7 @@ class SettingController extends Controller
      */
     public function show(Setting $setting)
     {
-        //
+        return view('admin.settings.show', compact('setting'));
     }
 
     /**
@@ -44,15 +50,18 @@ class SettingController extends Controller
      */
     public function edit(Setting $setting)
     {
-        //
+        return view('admin.settings.edit', compact('setting'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Setting $setting)
+    public function update(UpdateSettingRequest $request, Setting $setting)
     {
-        //
+        $setting->update($request->validated());
+
+        return redirect()->route('index.setting')
+            ->with('success', 'Setting berhasil diperbarui.');
     }
 
     /**
@@ -60,6 +69,9 @@ class SettingController extends Controller
      */
     public function destroy(Setting $setting)
     {
-        //
+        $setting->delete();
+
+        return redirect()->route('index.setting')
+            ->with('success', 'Setting berhasil dihapus.');
     }
 }

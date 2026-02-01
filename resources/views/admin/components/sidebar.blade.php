@@ -22,30 +22,33 @@
                 </a>
                 <ul>
                     <li>
+                        <a href="{{ route('index.user') }}"
+                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">User</a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('index.menu') }}"
+                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Menu</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('index.setting') }}"
+                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Setting</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('index.page') }}"
+                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Page</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('index.post') }}"
+                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Post</a>
+                    </li>
+                    <li>
                         <a href="{{ route('index.service') }}"
                             class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Service</a>
                     </li>
                     <li>
                         <a href="{{ route('index.location') }}"
                             class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Locations</a>
-                    </li>
-
-                    <li>
-                        <a href="javascript: void(0);" aria-expanded="false"
-                            class="block py-[6.4px] pr-6 text-sm font-medium text-gray-950 transition-all duration-150 ease-linear nav-menu pl-[52.8px] hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
-                            <span data-key="t-apps">Email</span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href="apps-email-inbox.html"
-                                    class="pl-[52.8px] pr-6 py-[6.4px] block text-[13px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Inbox</a>
-                            </li>
-                            <li>
-                                <a href="apps-email-read.html"
-                                    class="pl-[52.8px] pr-6 py-[6.4px] block text-[13px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Read
-                                    Email</a>
-                            </li>
-                        </ul>
                     </li>
                     <li>
                         <a href="javascript: void(0);" aria-expanded="false"

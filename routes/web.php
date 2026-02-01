@@ -59,6 +59,15 @@ Route::prefix('admin')->middleware(['auth', 'role'])->group(function () {
     Route::put('post/{post}', [App\Http\Controllers\PostController::class, 'update'])->name('update.post')->where('post', '[0-9]+');
     Route::delete('post/{post}', [App\Http\Controllers\PostController::class, 'destroy'])->name('destroy.post')->where('post', '[0-9]+');
 
+    // Route routes (Travel Routes)
+    Route::get('route', [App\Http\Controllers\RouteController::class, 'index'])->name('index.route');
+    Route::get('route/create', [App\Http\Controllers\RouteController::class, 'create'])->name('create.route');
+    Route::post('route', [App\Http\Controllers\RouteController::class, 'store'])->name('store.route');
+    Route::get('route/{route}', [App\Http\Controllers\RouteController::class, 'show'])->name('show.route')->where('route', '[0-9]+');
+    Route::get('route/{route}/edit', [App\Http\Controllers\RouteController::class, 'edit'])->name('edit.route')->where('route', '[0-9]+');
+    Route::put('route/{route}', [App\Http\Controllers\RouteController::class, 'update'])->name('update.route')->where('route', '[0-9]+');
+    Route::delete('route/{route}', [App\Http\Controllers\RouteController::class, 'destroy'])->name('destroy.route')->where('route', '[0-9]+');
+
     // Service routes
     Route::get('service', [App\Http\Controllers\ServiceController::class, 'index'])->name('index.service');
     Route::get('service/create', [App\Http\Controllers\ServiceController::class, 'create'])->name('create.service');
@@ -74,5 +83,29 @@ Route::prefix('admin')->middleware(['auth', 'role'])->group(function () {
     Route::get('location/{location}/edit', [App\Http\Controllers\LocationController::class, 'edit'])->name('edit.location');
     Route::put('location/{location}', [App\Http\Controllers\LocationController::class, 'update'])->name('update.location');
     Route::delete('location/{location}', [App\Http\Controllers\LocationController::class, 'destroy'])->name('destroy.location');
+
+    // Route Schedule routes
+    Route::get('route-schedule', [App\Http\Controllers\RouteScheduleController::class, 'index'])->name('index.route_schedule');
+    Route::get('route-schedule/create', [App\Http\Controllers\RouteScheduleController::class, 'create'])->name('create.route_schedule');
+    Route::post('route-schedule', [App\Http\Controllers\RouteScheduleController::class, 'store'])->name('store.route_schedule');
+    Route::get('route-schedule/{routeSchedule}', [App\Http\Controllers\RouteScheduleController::class, 'show'])->name('show.route_schedule')->where('routeSchedule', '[0-9]+');
+    Route::get('route-schedule/{routeSchedule}/edit', [App\Http\Controllers\RouteScheduleController::class, 'edit'])->name('edit.route_schedule')->where('routeSchedule', '[0-9]+');
+    Route::put('route-schedule/{routeSchedule}', [App\Http\Controllers\RouteScheduleController::class, 'update'])->name('update.route_schedule')->where('routeSchedule', '[0-9]+');
+    Route::delete('route-schedule/{routeSchedule}', [App\Http\Controllers\RouteScheduleController::class, 'destroy'])->name('destroy.route_schedule')->where('routeSchedule', '[0-9]+');
+
+    // Route Facilitie routes
+    Route::get('route-facilitie', [App\Http\Controllers\RouteFacilitieController::class, 'index'])->name('index.route_facilitie');
+    Route::get('route-facilitie/create', [App\Http\Controllers\RouteFacilitieController::class, 'create'])->name('create.route_facilitie');
+    Route::post('route-facilitie', [App\Http\Controllers\RouteFacilitieController::class, 'store'])->name('store.route_facilitie');
+    Route::get('route-facilitie/{routeFacilitie}/edit', [App\Http\Controllers\RouteFacilitieController::class, 'edit'])->name('edit.route_facilitie');
+    Route::put('route-facilitie/{routeFacilitie}', [App\Http\Controllers\RouteFacilitieController::class, 'update'])->name('update.route_facilitie');
+    Route::delete('route-facilitie/{routeFacilitie}', [App\Http\Controllers\RouteFacilitieController::class, 'destroy'])->name('destroy.route_facilitie');
+
+    // WhatsApp Leads routes
+    Route::get('wa-lead', [App\Http\Controllers\WaLeadsController::class, 'index'])->name('index.wa_lead');
+    Route::get('wa-lead/create', [App\Http\Controllers\WaLeadsController::class, 'create'])->name('create.wa_lead');
+    Route::post('wa-lead', [App\Http\Controllers\WaLeadsController::class, 'store'])->name('store.wa_lead');
+    Route::get('wa-lead/{waLead}', [App\Http\Controllers\WaLeadsController::class, 'show'])->name('show.wa_lead')->where('waLead', '[0-9]+');
+    Route::delete('wa-lead/{waLead}', [App\Http\Controllers\WaLeadsController::class, 'destroy'])->name('destroy.wa_lead')->where('waLead', '[0-9]+');
 
 }); // Tutup prefix group

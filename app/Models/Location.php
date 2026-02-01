@@ -32,4 +32,14 @@ class Location extends Model
     {
         return self::getTypeOptions()[$this->type] ?? $this->type;
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    public function scopeInactive($query)
+    {
+        return $query->where('is_active', false);
+    }
 }

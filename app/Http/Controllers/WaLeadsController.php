@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreWaLeadRequest;
+use App\Models\Route;
 use App\Models\Wa_Leads;
-use Illuminate\Http\Request;
 
 class WaLeadsController extends Controller
 {
@@ -12,7 +13,11 @@ class WaLeadsController extends Controller
      */
     public function index()
     {
-        //
+        $leads = Wa_Leads::with('route')
+            ->latest('clicked_at')
+            ->get();
+
+        return view('admin.wa_leads.index', compact('leads'));
     }
 
     /**
@@ -20,46 +25,47 @@ class WaLeadsController extends Controller
      */
     public function create()
     {
-        //
+        $routes = Route::active()->get();
+
+        return view('admin.wa_leads.create', compact('routes'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreWaLeadRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        // Set clicked_at to now if not provided
+        if (! isset($data['clicked_at'])) {
+            $data['clicked_at'] = now();
+        }
+
+        Wa_Leads::create($data);
+
+        return redirect()->route('index.wa_lead')
+            ->with('success', 'Lead WhatsApp berhasil ditambahkan');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Wa_Leads $wa_Leads)
+    public function show(Wa_Leads $waLead)
     {
-        //
-    }
+        $waLead->load('route');
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Wa_Leads $wa_Leads)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Wa_Leads $wa_Leads)
-    {
-        //
+        return view('admin.wa_leads.show', compact('waLead'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Wa_Leads $wa_Leads)
+    public function destroy(Wa_Leads $waLead)
     {
-        //
+        $waLead->delete();
+
+        return redirect()->route('index.wa_lead')
+            ->with('success', 'Lead WhatsApp berhasil dihapus');
     }
 }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LocationRequest;
 use App\Models\Location;
-use Illuminate\Http\Request;
 
 class LocationController extends Controller
 {
@@ -14,6 +13,7 @@ class LocationController extends Controller
     public function index()
     {
         $locations = Location::latest()->get();
+
         return view('admin.locations.index', compact('locations'));
     }
 

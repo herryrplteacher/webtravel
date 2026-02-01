@@ -2,9 +2,83 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Post extends Model
 {
-    //
+    use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'title',
+        'slug',
+        'excerpt',
+        'content',
+        'cover_image',
+        'is_published',
+        'published_at',
+        'created_by',
+    ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'is_published' => 'boolean',
+            'published_at' => 'datetime',
+        ];
+    }
+
+    /**
+     * Get the user that created the post.
+     */
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    /**
+     * Generate slug from title.
+     */
+    public static function generateSlug(string $title): string
+    {
+        return Str::slug($title);
+    }
+
+    /**
+     * Scope a query to only include published posts.
+     */
+    public function scopePublished($query)
+    {
+        return $query->where('is_published', true)
+            ->whereNotNull('published_at')
+            ->where('published_at', '<=', now());
+    }
+
+    /**
+     * Scope a query to only include draft posts.
+     */
+    public function scopeDraft($query)
+    {
+        return $query->where('is_published', false)
+            ->orWhereNull('published_at');
+    }
+
+    /**
+     * Scope a query to order by published date.
+     */
+    public function scopeLatestPublished($query)
+    {
+        return $query->orderBy('published_at', 'desc');
+    }
 }

@@ -14,6 +14,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('admin')->middleware(['auth', 'role'])->group(function () {
     // middleware untuk proteksi halaman admin
 
+    // Dashboard route
+    Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+
     // User routes
     Route::get('user', [App\Http\Controllers\UserController::class, 'index'])->name('index.user');
     Route::get('user/create', [App\Http\Controllers\UserController::class, 'create'])->name('create.user');

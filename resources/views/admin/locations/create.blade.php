@@ -60,15 +60,15 @@
                                 </div>
 
                                 <div class="mb-4">
-                                    <label class="block mb-2 font-medium text-gray-700 dark:text-gray-100" for="type">Tipe
+                                    <label class="block mb-2 font-medium text-gray-700 dark:text-gray-100"
+                                        for="type">Tipe
                                         Lokasi <span class="text-red-500">*</span></label>
                                     <select
                                         class="w-full py-2 px-3 rounded border-gray-300 focus:border focus:border-violet-500 focus:ring focus:ring-violet-500/20 dark:bg-zinc-700/50 dark:border-zinc-600 dark:text-zinc-100 @error('type') border-red-500 @enderror"
                                         id="type" name="type">
                                         <option value="">Pilih Tipe Lokasi</option>
                                         @foreach (App\Models\Location::getTypeOptions() as $key => $label)
-                                            <option value="{{ $key }}"
-                                                {{ old('type') == $key ? 'selected' : '' }}>
+                                            <option value="{{ $key }}" {{ old('type') == $key ? 'selected' : '' }}>
                                                 {{ $label }}
                                             </option>
                                         @endforeach

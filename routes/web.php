@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Frontend Routes (Public)
+Route::get('/', [App\Http\Controllers\FrontendController::class, 'index'])->name('frontend.index');
+Route::get('/route/{id}', [App\Http\Controllers\FrontendController::class, 'routeDetail'])->name('frontend.route.detail');
 
 Auth::routes();
 
@@ -13,6 +13,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // prefix ke folder admin
 Route::prefix('admin')->middleware(['auth', 'role'])->group(function () {
     // middleware untuk proteksi halaman admin
+
+    // Dashboard route
+    Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
     // User routes
     Route::get('user', [App\Http\Controllers\UserController::class, 'index'])->name('index.user');

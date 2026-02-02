@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Route extends Model
@@ -45,6 +47,29 @@ class Route extends Model
     public function toLocation(): BelongsTo
     {
         return $this->belongsTo(Location::class, 'to_location_id');
+    }
+
+    // Alias untuk snake_case (compatibility dengan blade templates)
+    public function from_location(): BelongsTo
+    {
+        return $this->fromLocation();
+    }
+
+    public function to_location(): BelongsTo
+    {
+        return $this->toLocation();
+    }
+
+    // Relasi ke facilities
+    public function facilities()
+    {
+        return $this->hasMany(Route_facilitie::class, 'route_id');
+    }
+
+    // Relasi ke schedules
+    public function schedules()
+    {
+        return $this->hasMany(Route_Schedule::class, 'route_id');
     }
 
     public static function generateSlug(string $title): string

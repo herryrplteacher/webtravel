@@ -1,0 +1,1092 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>D3 Travel — Modern UI</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    boxShadow: { soft: "0 14px 40px rgba(2, 6, 23, 0.10)" },
+                    keyframes: {
+                        floaty: { "0%,100%": { transform: "translateY(0px)" }, "50%": { transform: "translateY(-8px)" } },
+                        fadeUp: { "0%": { opacity: 0, transform: "translateY(10px)" }, "100%": { opacity: 1, transform: "translateY(0)" } }
+                    },
+                    animation: {
+                        floaty: "floaty 8s ease-in-out infinite",
+                        fadeUp: "fadeUp .6s ease-out both"
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* nicer text rendering */
+        html {
+            text-rendering: geometricPrecision;
+            scroll-behavior: smooth;
+        }
+
+        /* Mobile menu animation */
+        #mobileMenu {
+            transition: all 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+        }
+
+        #mobileMenu:not(.hidden) {
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        /* Smooth icon transition */
+        #menuIcon {
+            transition: transform 0.2s ease;
+            display: inline-block;
+        }
+
+        /* Mobile menu links hover effect */
+        .mobile-menu-link {
+            transition: all 0.2s ease;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+    <!-- Background blobs -->
+    <div class="pointer-events-none fixed inset-0 -z-10">
+        <div
+            class="absolute -top-24 left-1/2 h-72 w-[42rem] -translate-x-1/2 rounded-full bg-gradient-to-r from-purple-200/60 via-violet-200/60 to-fuchsia-200/60 blur-3xl dark:from-purple-500/15 dark:via-violet-500/15 dark:to-fuchsia-500/15">
+        </div>
+        <div class="absolute top-72 left-10 h-56 w-56 rounded-full bg-purple-200/40 blur-3xl dark:bg-purple-500/10">
+        </div>
+        <div
+            class="absolute bottom-24 right-10 h-72 w-72 rounded-full bg-fuchsia-200/30 blur-3xl dark:bg-fuchsia-500/10">
+        </div>
+    </div>
+
+    <!-- Top bar -->
+    <div class="border-b border-slate-200/70 bg-white/70 backdrop-blur dark:border-slate-800/70 dark:bg-slate-900/50">
+        <div
+            class="mx-auto flex max-w-6xl items-center justify-between px-4 py-2 text-xs text-slate-600 dark:text-slate-300">
+            <div class="flex flex-wrap gap-3">
+                <span class="inline-flex items-center gap-2">
+                    <span class="h-2 w-2 rounded-full bg-fuchsia-500"></span>
+                    Layanan 24 Jam • Door-to-door • Travel • Rental • Paket Kilat
+                </span>
+            </div>
+            <div class="hidden sm:flex items-center gap-4">
+                <a class="hover:text-slate-900 dark:hover:text-white"
+                    href="mailto:info@d3travel.com">info@d3travel.com</a>
+                <span class="opacity-60">•</span>
+                <a class="hover:text-slate-900 dark:hover:text-white" href="https://wa.me/6282298900309" target="_blank"
+                    rel="noreferrer">WA: 0822-9890-0309</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <header
+        class="sticky top-0 z-40 border-b border-slate-200/70 bg-white/70 backdrop-blur dark:border-slate-800/70 dark:bg-slate-900/50">
+        <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+            <a href="index.html" class="flex items-center gap-2">
+                <div
+                    class="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br from-purple-600 to-fuchsia-600 text-white shadow-sm">
+                    <span class="text-sm font-bold">D3</span>
+                </div>
+                <div class="leading-tight">
+                    <p class="text-sm font-semibold">D3 Travel</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Modern booking • Fast confirmation</p>
+                </div>
+            </a>
+
+            <nav class="hidden items-center gap-6 text-sm text-slate-600 dark:text-slate-300 md:flex">
+                <a class="hover:text-slate-900 dark:hover:text-white" href="#routes">Rute</a>
+                <a class="hover:text-slate-900 dark:hover:text-white" href="#services">Layanan</a>
+                <a class="hover:text-slate-900 dark:hover:text-white" href="#features">Keunggulan</a>
+                <a class="hover:text-slate-900 dark:hover:text-white" href="#about">Tentang</a>
+                <a class="hover:text-slate-900 dark:hover:text-white" href="#gallery">Galeri</a>
+                <a class="hover:text-slate-900 dark:hover:text-white" href="#reviews">Testimoni</a>
+            </nav>
+
+            <div class="flex items-center gap-2">
+                <button id="themeBtn"
+                    class="grid h-10 w-10 place-items-center rounded-2xl border border-slate-200 bg-white text-slate-800 shadow-sm hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
+                    aria-label="Toggle theme">
+                    <span id="themeIcon">🌙</span>
+                </button>
+
+                <a href="https://wa.me/6282298900309" target="_blank" rel="noreferrer"
+                    class="hidden rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:from-purple-700 hover:to-fuchsia-700 sm:inline-flex">
+                    Chat WhatsApp
+                </a>
+
+                <button id="menuBtn"
+                    class="grid h-10 w-10 place-items-center rounded-2xl border border-slate-200 bg-white text-xl text-slate-800 shadow-sm hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 md:hidden"
+                    aria-label="Toggle menu">
+                    <span id="menuIcon">☰</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobileMenu"
+            class="hidden overflow-hidden border-t border-slate-200/70 bg-white/95 backdrop-blur dark:border-slate-800/70 dark:bg-slate-900/95 md:hidden">
+            <div class="mx-auto max-w-6xl px-4 py-3">
+                <div class="grid gap-1 text-sm text-slate-700 dark:text-slate-200">
+                    <a class="mobile-menu-link rounded-2xl px-3 py-2 hover:bg-slate-50 dark:hover:bg-slate-800"
+                        href="#routes">Rute</a>
+                    <a class="mobile-menu-link rounded-2xl px-3 py-2 hover:bg-slate-50 dark:hover:bg-slate-800"
+                        href="#services">Layanan</a>
+                    <a class="mobile-menu-link rounded-2xl px-3 py-2 hover:bg-slate-50 dark:hover:bg-slate-800"
+                        href="#features">Keunggulan</a>
+                    <a class="mobile-menu-link rounded-2xl px-3 py-2 hover:bg-slate-50 dark:hover:bg-slate-800"
+                        href="#about">Tentang</a>
+                    <a class="mobile-menu-link rounded-2xl px-3 py-2 hover:bg-slate-50 dark:hover:bg-slate-800"
+                        href="#gallery">Galeri</a>
+                    <a class="mobile-menu-link rounded-2xl px-3 py-2 hover:bg-slate-50 dark:hover:bg-slate-800"
+                        href="#reviews">Testimoni</a>
+                    <a class="rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-3 py-2 text-center font-semibold text-white hover:from-purple-700 hover:to-fuchsia-700"
+                        href="https://wa.me/6282298900309" target="_blank" rel="noreferrer">
+                        💬 Chat WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="mx-auto max-w-6xl px-4 pt-10">
+        <div class="grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+            <div class="animate-fadeUp">
+                <div
+                    class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/70 px-3 py-1 text-xs font-medium text-slate-700 shadow-sm backdrop-blur dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-200">
+                    <span class="inline-block h-2 w-2 rounded-full bg-fuchsia-500"></span>
+                    Door-to-door • Armada nyaman • Driver profesional
+                </div>
+
+                <h1 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+                    Booking travel antar kota jadi
+                    <span
+                        class="bg-gradient-to-r from-purple-700 via-violet-600 to-fuchsia-600 bg-clip-text text-transparent dark:from-purple-200 dark:via-violet-200 dark:to-fuchsia-200">
+                        cepat & elegan
+                    </span>.
+                </h1>
+
+                <p class="mt-4 max-w-xl text-base leading-relaxed text-slate-600 dark:text-slate-300">
+                    Pilih rute, cek jadwal, lalu konfirmasi via WhatsApp. UI modern, alur simpel, info rapi.
+                </p>
+
+                <!-- Search Card -->
+                <div
+                    class="mt-6 rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-soft backdrop-blur dark:border-slate-800 dark:bg-slate-900/60">
+                    <div class="grid gap-3 md:grid-cols-4">
+                        <div class="md:col-span-2">
+                            <label class="text-xs font-medium text-slate-600 dark:text-slate-300">Dari / Ke</label>
+                            <div
+                                class="mt-1 flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-3 py-2 dark:border-slate-800 dark:bg-slate-950">
+                                <span class="text-slate-400">⌕</span>
+                                <input id="qInput"
+                                    class="w-full bg-transparent text-sm outline-none placeholder:text-slate-400 dark:placeholder:text-slate-600"
+                                    placeholder="Contoh: Tasikmalaya, Jakarta, Bandara..." />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="text-xs font-medium text-slate-600 dark:text-slate-300">Layanan</label>
+                            <select id="svcSelect"
+                                class="mt-1 w-full rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-slate-900/10 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200 dark:focus:ring-white/10">
+                                <option value="All">Semua</option>
+                                <option value="Door to Door">Door to Door</option>
+                                <option value="Rental Mobil">Rental Mobil</option>
+                                <option value="Titip Paket">Titip Paket</option>
+                                <option value="Tour Wisata">Tour Wisata</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="text-xs font-medium text-slate-600 dark:text-slate-300">Tanggal</label>
+                            <input id="dateInput" type="date"
+                                class="mt-1 w-full rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-slate-900/10 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200 dark:focus:ring-white/10" />
+                        </div>
+                    </div>
+
+                    <div class="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <div
+                            class="flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-3 py-2 sm:w-[280px] dark:border-slate-800 dark:bg-slate-950">
+                            <div>
+                                <p class="text-xs font-medium text-slate-600 dark:text-slate-300">Jumlah penumpang</p>
+                                <p class="text-sm font-semibold"><span id="travCount">2</span> orang</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button id="decBtn"
+                                    class="grid h-9 w-9 place-items-center rounded-2xl border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
+                                    aria-label="decrease">−</button>
+                                <button id="incBtn"
+                                    class="grid h-9 w-9 place-items-center rounded-2xl border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
+                                    aria-label="increase">+</button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-2 sm:flex-row">
+                            <button id="cekTarifBtn"
+                                class="inline-flex items-center justify-center gap-2 rounded-2xl border-2 border-purple-600 bg-white px-4 py-3 text-sm font-semibold text-purple-700 shadow-sm hover:bg-purple-50 dark:border-purple-500 dark:bg-slate-900 dark:text-purple-300 dark:hover:bg-slate-800">
+                                💬 Cek Tarif via WA
+                            </button>
+                            <a href="#routes"
+                                class="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:from-purple-700 hover:to-fuchsia-700">
+                                Lihat rute tersedia <span aria-hidden="true">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5 flex flex-wrap items-center gap-3 text-xs text-slate-600 dark:text-slate-300">
+                    <span
+                        class="rounded-full border border-slate-200 bg-white/70 px-3 py-1 backdrop-blur dark:border-slate-800 dark:bg-slate-900/60">Full
+                        AC</span>
+                    <span
+                        class="rounded-full border border-slate-200 bg-white/70 px-3 py-1 backdrop-blur dark:border-slate-800 dark:bg-slate-900/60">Free
+                        Charger</span>
+                    <span
+                        class="rounded-full border border-slate-200 bg-white/70 px-3 py-1 backdrop-blur dark:border-slate-800 dark:bg-slate-900/60">Bagasi
+                        Luas</span>
+                    <span
+                        class="rounded-full border border-slate-200 bg-white/70 px-3 py-1 backdrop-blur dark:border-slate-800 dark:bg-slate-900/60">Berangkat
+                        tiap hari</span>
+                </div>
+            </div>
+
+            <!-- Hero Visual -->
+            <div
+                class="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-soft dark:border-slate-800 dark:bg-slate-900 animate-fadeUp">
+                <div
+                    class="absolute inset-0 bg-gradient-to-br from-slate-900/10 via-transparent to-indigo-500/10 dark:from-white/5 dark:to-sky-500/10">
+                </div>
+                <img class="h-[440px] w-full object-cover"
+                    src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80"
+                    alt="Travel" loading="lazy" />
+                <div
+                    class="absolute bottom-4 left-4 right-4 rounded-3xl border border-white/30 bg-white/70 p-4 backdrop-blur dark:bg-slate-950/50 dark:border-slate-800/60">
+                    <div class="flex items-center justify-between gap-3">
+                        <div>
+                            <p class="text-xs font-medium text-slate-600 dark:text-slate-300">Highlight</p>
+                            <p class="text-sm font-semibold">Door-to-door nyaman</p>
+                            <p class="text-xs text-slate-600 dark:text-slate-300">Konfirmasi cepat via WhatsApp</p>
+                        </div>
+                        <a class="rounded-2xl bg-white px-3 py-2 text-sm font-semibold text-purple-700 shadow-sm hover:bg-slate-50 dark:bg-slate-900 dark:text-purple-300 dark:hover:bg-slate-800"
+                            href="https://wa.me/6282298900309" target="_blank" rel="noreferrer">
+                            Chat
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Routes -->
+    <section id="routes" class="mx-auto max-w-6xl px-4 pt-12">
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+                <h2 class="text-2xl font-semibold tracking-tight">Rute unggulan</h2>
+                <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">
+                    Pilih rute, buka detail, lalu lanjut checkout.
+                </p>
+            </div>
+            <div class="text-sm text-slate-600 dark:text-slate-300">
+                Menampilkan <span id="countLabel" class="font-semibold text-slate-900 dark:text-white">0</span> rute
+            </div>
+        </div>
+
+        <div id="routesGrid" class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- injected -->
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="mx-auto max-w-6xl px-4 pt-12">
+        <div
+            class="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-slate-900">
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                    <h2 class="text-2xl font-semibold tracking-tight">Layanan</h2>
+                    <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Satu tempat untuk kebutuhan perjalanan
+                        kamu.</p>
+                </div>
+                <a class="rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-4 py-2 text-sm font-semibold text-white hover:from-purple-700 hover:to-fuchsia-700"
+                    href="https://wa.me/6282298900309" target="_blank" rel="noreferrer">
+                    Booking via WhatsApp
+                </a>
+            </div>
+
+            <div class="mt-6 grid gap-4 md:grid-cols-4">
+                <div data-service="Door to Door"
+                    class="service-card cursor-pointer rounded-3xl border border-slate-200 bg-slate-50 p-4 transition-all hover:scale-105 hover:border-purple-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950 dark:hover:border-purple-700">
+                    <p class="text-xs font-semibold text-slate-600 dark:text-slate-300">Door to Door</p>
+                    <p class="mt-2 text-base font-semibold">Jemput & antar</p>
+                    <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Sampai titik tujuan, nyaman.</p>
+                    <p class="mt-3 text-xs font-semibold text-purple-600 dark:text-purple-400">Klik untuk cek tarif →
+                    </p>
+                </div>
+                <div data-service="Rental Mobil"
+                    class="service-card cursor-pointer rounded-3xl border border-slate-200 bg-slate-50 p-4 transition-all hover:scale-105 hover:border-purple-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950 dark:hover:border-purple-700">
+                    <p class="text-xs font-semibold text-slate-600 dark:text-slate-300">Rental Mobil</p>
+                    <p class="mt-2 text-base font-semibold">Charter + driver</p>
+                    <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Armada terawat & fleksibel.</p>
+                    <p class="mt-3 text-xs font-semibold text-purple-600 dark:text-purple-400">Klik untuk cek tarif →
+                    </p>
+                </div>
+                <div data-service="Titip Paket"
+                    class="service-card cursor-pointer rounded-3xl border border-slate-200 bg-slate-50 p-4 transition-all hover:scale-105 hover:border-purple-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950 dark:hover:border-purple-700">
+                    <p class="text-xs font-semibold text-slate-600 dark:text-slate-300">Titip Paket</p>
+                    <p class="mt-2 text-base font-semibold">Paket kilat</p>
+                    <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Aman, cepat, mudah tracking.</p>
+                    <p class="mt-3 text-xs font-semibold text-purple-600 dark:text-purple-400">Klik untuk cek tarif →
+                    </p>
+                </div>
+                <div data-service="Tour Wisata"
+                    class="service-card cursor-pointer rounded-3xl border border-slate-200 bg-slate-50 p-4 transition-all hover:scale-105 hover:border-purple-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950 dark:hover:border-purple-700">
+                    <p class="text-xs font-semibold text-slate-600 dark:text-slate-300">Tour Wisata</p>
+                    <p class="mt-2 text-base font-semibold">Rombongan</p>
+                    <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Rute & itinerary bisa custom.</p>
+                    <p class="mt-3 text-xs font-semibold text-purple-600 dark:text-purple-400">Klik untuk cek tarif →
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Keunggulan -->
+    <section id="features" class="mx-auto max-w-6xl px-4 pt-12">
+        <div
+            class="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-slate-900">
+            <div class="text-center">
+                <h2 class="text-2xl font-semibold tracking-tight">Keunggulan</h2>
+                <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Alasan kenapa pelanggan memilih kami untuk
+                    perjalanan mereka</p>
+            </div>
+
+            <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="group text-center">
+                    <div
+                        class="mx-auto grid h-20 w-20 place-items-center rounded-3xl border-2 border-slate-200 bg-gradient-to-br from-purple-50 to-fuchsia-50 text-4xl transition-all duration-300 group-hover:scale-110 group-hover:border-purple-300 group-hover:shadow-lg dark:border-slate-800 dark:from-purple-950/30 dark:to-fuchsia-950/30 dark:group-hover:border-purple-700">
+                        💰
+                    </div>
+                    <h3 class="mt-4 font-semibold text-slate-900 dark:text-white">Tarif Terjangkau</h3>
+                    <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Tarif yang terjangkau pelayanan memukau
+                    </p>
+                </div>
+
+                <div class="group text-center">
+                    <div
+                        class="mx-auto grid h-20 w-20 place-items-center rounded-3xl border-2 border-slate-200 bg-gradient-to-br from-purple-50 to-fuchsia-50 text-4xl transition-all duration-300 group-hover:scale-110 group-hover:border-purple-300 group-hover:shadow-lg dark:border-slate-800 dark:from-purple-950/30 dark:to-fuchsia-950/30 dark:group-hover:border-purple-700">
+                        👨‍✈️
+                    </div>
+                    <h3 class="mt-4 font-semibold text-slate-900 dark:text-white">Driver Professional</h3>
+                    <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Driver ramah, disiplin, sehat, dan
+                        berpengalaman</p>
+                </div>
+
+                <div class="group text-center">
+                    <div
+                        class="mx-auto grid h-20 w-20 place-items-center rounded-3xl border-2 border-slate-200 bg-gradient-to-br from-purple-50 to-fuchsia-50 text-4xl transition-all duration-300 group-hover:scale-110 group-hover:border-purple-300 group-hover:shadow-lg dark:border-slate-800 dark:from-purple-950/30 dark:to-fuchsia-950/30 dark:group-hover:border-purple-700">
+                        🚗
+                    </div>
+                    <h3 class="mt-4 font-semibold text-slate-900 dark:text-white">Mobil Prima Terawat</h3>
+                    <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Mobil nyaman, dicek rutin, terawat
+                        kondisi laik jalan</p>
+                </div>
+
+                <div class="group text-center">
+                    <div
+                        class="mx-auto grid h-20 w-20 place-items-center rounded-3xl border-2 border-slate-200 bg-gradient-to-br from-purple-50 to-fuchsia-50 text-4xl transition-all duration-300 group-hover:scale-110 group-hover:border-purple-300 group-hover:shadow-lg dark:border-slate-800 dark:from-purple-950/30 dark:to-fuchsia-950/30 dark:group-hover:border-purple-700">
+                        🤝
+                    </div>
+                    <h3 class="mt-4 font-semibold text-slate-900 dark:text-white">Fasilitas Nyaman</h3>
+                    <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Full AC, Free charging, dan Bagasi yang
+                        cukup luas</p>
+                </div>
+
+                <div class="group text-center">
+                    <div
+                        class="mx-auto grid h-20 w-20 place-items-center rounded-3xl border-2 border-slate-200 bg-gradient-to-br from-purple-50 to-fuchsia-50 text-4xl transition-all duration-300 group-hover:scale-110 group-hover:border-purple-300 group-hover:shadow-lg dark:border-slate-800 dark:from-purple-950/30 dark:to-fuchsia-950/30 dark:group-hover:border-purple-700">
+                        📍
+                    </div>
+                    <h3 class="mt-4 font-semibold text-slate-900 dark:text-white">Sesuai Titik/Tempat</h3>
+                    <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Dijemput dan diantar sampai tempat tujuan
+                    </p>
+                </div>
+
+                <div class="group text-center">
+                    <div
+                        class="mx-auto grid h-20 w-20 place-items-center rounded-3xl border-2 border-slate-200 bg-gradient-to-br from-purple-50 to-fuchsia-50 text-4xl transition-all duration-300 group-hover:scale-110 group-hover:border-purple-300 group-hover:shadow-lg dark:border-slate-800 dark:from-purple-950/30 dark:to-fuchsia-950/30 dark:group-hover:border-purple-700">
+                        👍
+                    </div>
+                    <h3 class="mt-4 font-semibold text-slate-900 dark:text-white">Pilihan Terbaik</h3>
+                    <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Alhamdulillah telah dipercaya oleh banyak
+                        pelanggan</p>
+                </div>
+
+                <div class="group text-center">
+                    <div
+                        class="mx-auto grid h-20 w-20 place-items-center rounded-3xl border-2 border-slate-200 bg-gradient-to-br from-purple-50 to-fuchsia-50 text-4xl transition-all duration-300 group-hover:scale-110 group-hover:border-purple-300 group-hover:shadow-lg dark:border-slate-800 dark:from-purple-950/30 dark:to-fuchsia-950/30 dark:group-hover:border-purple-700">
+                        📅
+                    </div>
+                    <h3 class="mt-4 font-semibold text-slate-900 dark:text-white">Berangkat Setiap Hari</h3>
+                    <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Berangkat setiap hari dari pagi, siang
+                        dan malam</p>
+                </div>
+
+                <div class="group text-center">
+                    <div
+                        class="mx-auto grid h-20 w-20 place-items-center rounded-3xl border-2 border-slate-200 bg-gradient-to-br from-purple-50 to-fuchsia-50 text-4xl transition-all duration-300 group-hover:scale-110 group-hover:border-purple-300 group-hover:shadow-lg dark:border-slate-800 dark:from-purple-950/30 dark:to-fuchsia-950/30 dark:group-hover:border-purple-700">
+                        📱
+                    </div>
+                    <h3 class="mt-4 font-semibold text-slate-900 dark:text-white">Booking Mudah</h3>
+                    <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Booking mudah via whatsapp, atau telpon
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us -->
+    <section id="about" class="mx-auto max-w-6xl px-4 pt-12">
+        <div
+            class="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-slate-900">
+            <div class="grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+                <div>
+                    <h2 class="text-2xl font-semibold tracking-tight">Tentang Kami</h2>
+                    <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                        <strong class="font-semibold text-slate-900 dark:text-white">D3 Travel</strong> adalah
+                        layanan travel terpercaya yang telah melayani perjalanan antar kota sejak lama. Kami berkomitmen
+                        memberikan pengalaman perjalanan yang nyaman, aman, dan tepat waktu.
+                    </p>
+                    <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                        Dengan armada terawat, driver berpengalaman, dan sistem booking yang mudah, kami siap
+                        mengantarkan Anda
+                        ke tujuan dengan pelayanan terbaik.
+                    </p>
+
+                    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+                        <div
+                            class="rounded-3xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
+                            <p class="text-2xl font-bold text-slate-900 dark:text-white">10+</p>
+                            <p class="mt-1 text-xs text-slate-600 dark:text-slate-300">Tahun pengalaman</p>
+                        </div>
+                        <div
+                            class="rounded-3xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
+                            <p class="text-2xl font-bold text-slate-900 dark:text-white">15+</p>
+                            <p class="mt-1 text-xs text-slate-600 dark:text-slate-300">Armada tersedia</p>
+                        </div>
+                        <div
+                            class="rounded-3xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
+                            <p class="text-2xl font-bold text-slate-900 dark:text-white">1000+</p>
+                            <p class="mt-1 text-xs text-slate-600 dark:text-slate-300">Pelanggan puas</p>
+                        </div>
+                        <div
+                            class="rounded-3xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
+                            <p class="text-2xl font-bold text-slate-900 dark:text-white">24/7</p>
+                            <p class="mt-1 text-xs text-slate-600 dark:text-slate-300">Layanan siaga</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid gap-4">
+                    <div class="overflow-hidden rounded-3xl">
+                        <img class="h-56 w-full object-cover"
+                            src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1400&q=80"
+                            alt="Travel team" loading="lazy" />
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="overflow-hidden rounded-3xl">
+                            <img class="h-32 w-full object-cover"
+                                src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=800&q=80"
+                                alt="Car fleet" loading="lazy" />
+                        </div>
+                        <div class="overflow-hidden rounded-3xl">
+                            <img class="h-32 w-full object-cover"
+                                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
+                                alt="Professional driver" loading="lazy" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="mt-8 rounded-3xl border border-slate-200 bg-gradient-to-br from-purple-50 to-fuchsia-50 p-6 dark:border-slate-800 dark:from-purple-950/30 dark:to-fuchsia-950/30">
+                <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold">Visi & Misi Kami</h3>
+                        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+                            Menjadi pilihan utama layanan travel dengan standar kualitas terbaik, memberikan kenyamanan
+                            dan
+                            keamanan di setiap perjalanan.
+                        </p>
+                    </div>
+                    <a class="inline-flex rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-4 py-2 text-sm font-semibold text-white hover:from-purple-700 hover:to-fuchsia-700"
+                        href="https://wa.me/6282298900309" target="_blank" rel="noreferrer">
+                        Hubungi Kami
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="mx-auto max-w-6xl px-4 pt-12">
+        <div
+            class="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-slate-900">
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                    <h2 class="text-2xl font-semibold tracking-tight">Galeri</h2>
+                    <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Armada dan momen perjalanan bersama kami.
+                    </p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button id="galleryPrev"
+                        class="grid h-10 w-10 place-items-center rounded-2xl border border-slate-200 bg-white text-slate-800 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
+                        aria-label="Previous">←</button>
+                    <button id="galleryNext"
+                        class="grid h-10 w-10 place-items-center rounded-2xl border border-slate-200 bg-white text-slate-800 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
+                        aria-label="Next">→</button>
+                </div>
+            </div>
+
+            <div class="mt-6 overflow-hidden">
+                <div id="galleryTrack"
+                    class="grid grid-cols-1 gap-4 transition-transform duration-500 sm:grid-cols-2 lg:grid-cols-3">
+                    <div class="group relative overflow-hidden rounded-3xl">
+                        <img class="h-64 w-full object-cover transition duration-300 group-hover:scale-110"
+                            src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=800&q=80"
+                            alt="Armada Avanza" loading="lazy" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            <div class="absolute bottom-4 left-4 right-4 text-white">
+                                <p class="text-sm font-semibold">Armada Avanza</p>
+                                <p class="text-xs text-white/80">Nyaman untuk 6-7 penumpang</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group relative overflow-hidden rounded-3xl">
+                        <img class="h-64 w-full object-cover transition duration-300 group-hover:scale-110"
+                            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
+                            alt="Driver Profesional" loading="lazy" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            <div class="absolute bottom-4 left-4 right-4 text-white">
+                                <p class="text-sm font-semibold">Driver Profesional</p>
+                                <p class="text-xs text-white/80">Berpengalaman & ramah</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group relative overflow-hidden rounded-3xl">
+                        <img class="h-64 w-full object-cover transition duration-300 group-hover:scale-110"
+                            src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80"
+                            alt="Interior Nyaman" loading="lazy" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            <div class="absolute bottom-4 left-4 right-4 text-white">
+                                <p class="text-sm font-semibold">Interior Nyaman</p>
+                                <p class="text-xs text-white/80">Full AC & charger tersedia</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group relative overflow-hidden rounded-3xl">
+                        <img class="h-64 w-full object-cover transition duration-300 group-hover:scale-110"
+                            src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80"
+                            alt="Armada Hiace" loading="lazy" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            <div class="absolute bottom-4 left-4 right-4 text-white">
+                                <p class="text-sm font-semibold">Armada Hiace</p>
+                                <p class="text-xs text-white/80">Untuk rombongan besar</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group relative overflow-hidden rounded-3xl">
+                        <img class="h-64 w-full object-cover transition duration-300 group-hover:scale-110"
+                            src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80"
+                            alt="Perjalanan Nyaman" loading="lazy" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            <div class="absolute bottom-4 left-4 right-4 text-white">
+                                <p class="text-sm font-semibold">Perjalanan Nyaman</p>
+                                <p class="text-xs text-white/80">Seat empuk & lega</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group relative overflow-hidden rounded-3xl">
+                        <img class="h-64 w-full object-cover transition duration-300 group-hover:scale-110"
+                            src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=800&q=80"
+                            alt="Bagasi Luas" loading="lazy" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            <div class="absolute bottom-4 left-4 right-4 text-white">
+                                <p class="text-sm font-semibold">Bagasi Luas</p>
+                                <p class="text-xs text-white/80">Muat banyak barang bawaan</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="mt-6 rounded-3xl border border-slate-200 bg-slate-50 p-4 text-center dark:border-slate-800 dark:bg-slate-950">
+                <p class="text-sm text-slate-600 dark:text-slate-300">
+                    📸 Lihat lebih banyak foto armada dan testimoni pelanggan di
+                    <a class="font-semibold text-slate-900 hover:underline dark:text-white"
+                        href="https://wa.me/6282298900309" target="_blank" rel="noreferrer">WhatsApp Business kami</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule -->
+    <section id="schedule" class="mx-auto max-w-6xl px-4 pt-12">
+        <div class="grid gap-6 lg:grid-cols-2">
+            <div
+                class="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-slate-900">
+                <h2 class="text-2xl font-semibold tracking-tight">Jam keberangkatan</h2>
+                <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Contoh slot: pagi, siang, sore, malam.
+                    :contentReference[oaicite:1]{index=1}</p>
+
+                <div class="mt-6 grid gap-4 sm:grid-cols-2">
+                    <div
+                        class="rounded-3xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
+                        <p class="text-xs font-semibold text-slate-600 dark:text-slate-300">Pagi</p>
+                        <p class="mt-2 text-sm">08:00 • 10:00</p>
+                    </div>
+                    <div
+                        class="rounded-3xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
+                        <p class="text-xs font-semibold text-slate-600 dark:text-slate-300">Siang</p>
+                        <p class="mt-2 text-sm">12:30 • 14:00</p>
+                    </div>
+                    <div
+                        class="rounded-3xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
+                        <p class="text-xs font-semibold text-slate-600 dark:text-slate-300">Sore</p>
+                        <p class="mt-2 text-sm">15:30 • 16:40</p>
+                    </div>
+                    <div
+                        class="rounded-3xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
+                        <p class="text-xs font-semibold text-slate-600 dark:text-slate-300">Malam</p>
+                        <p class="mt-2 text-sm">18:30 • 20:30 • 22:00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-slate-900">
+                <h3 class="text-lg font-semibold">Kenapa pilih kami?</h3>
+                <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">
+                    Driver ramah, armada terawat, fasilitas lengkap. :contentReference[oaicite:2]{index=2}
+                </p>
+
+                <div class="mt-5 grid gap-4 sm:grid-cols-2">
+                    <div
+                        class="rounded-3xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
+                        <p class="text-xs text-slate-600 dark:text-slate-300">Fasilitas</p>
+                        <p class="mt-2 text-2xl font-semibold">AC • Charger</p>
+                    </div>
+                    <div
+                        class="rounded-3xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
+                        <p class="text-xs text-slate-600 dark:text-slate-300">Bagasi</p>
+                        <p class="mt-2 text-2xl font-semibold">Luas</p>
+                    </div>
+                    <div
+                        class="rounded-3xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
+                        <p class="text-xs text-slate-600 dark:text-slate-300">Keberangkatan</p>
+                        <p class="mt-2 text-2xl font-semibold">Setiap hari</p>
+                    </div>
+                    <div
+                        class="rounded-3xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
+                        <p class="text-xs text-slate-600 dark:text-slate-300">Booking</p>
+                        <p class="mt-2 text-2xl font-semibold">Via WA</p>
+                    </div>
+                </div>
+
+                <div
+                    class="mt-6 rounded-3xl border border-slate-200 bg-gradient-to-br from-purple-700 to-fuchsia-700 p-5 text-white dark:border-slate-800">
+                    <p class="text-sm font-semibold">Butuh konfirmasi cepat?</p>
+                    <p class="mt-1 text-sm text-white/80">Klik tombol WhatsApp, kirim rute + tanggal + jumlah orang.</p>
+                    <div class="mt-4 flex flex-col gap-2 sm:flex-row">
+                        <a class="rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-purple-700 hover:bg-slate-50"
+                            href="https://wa.me/6282298900309" target="_blank" rel="noreferrer">Chat WhatsApp</a>
+                        <a class="rounded-2xl border border-white/30 bg-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/15"
+                            href="#routes">Lihat rute</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews -->
+    <section id="reviews" class="mx-auto max-w-6xl px-4 py-14">
+        <div
+            class="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-slate-900">
+            <h2 class="text-2xl font-semibold tracking-tight">Apa kata pelanggan?</h2>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Testimoni singkat (style card modern).
+                :contentReference[oaicite:3]{index=3}</p>
+
+            <div class="mt-6 grid gap-4 md:grid-cols-3">
+                <div
+                    class="rounded-3xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
+                    <div class="text-amber-400">★★★★★</div>
+                    <p class="mt-2 text-sm text-slate-700 dark:text-slate-200">“Perjalanan nyaman, supir enak diajak
+                        ngobrol.”</p>
+                    <p class="mt-3 text-xs font-semibold text-slate-600 dark:text-slate-300">Asep Samsul</p>
+                </div>
+                <div
+                    class="rounded-3xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
+                    <div class="text-amber-400">★★★★★</div>
+                    <p class="mt-2 text-sm text-slate-700 dark:text-slate-200">“Mobil wangi bersih, perjalanan makin
+                        nyaman.”</p>
+                    <p class="mt-3 text-xs font-semibold text-slate-600 dark:text-slate-300">Tita</p>
+                </div>
+                <div
+                    class="rounded-3xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
+                    <div class="text-amber-400">★★★★★</div>
+                    <p class="mt-2 text-sm text-slate-700 dark:text-slate-200">“Supir ramah, alhamdulillah selamat
+                        sampai tujuan.”</p>
+                    <p class="mt-3 text-xs font-semibold text-slate-600 dark:text-slate-300">Samuel</p>
+                </div>
+            </div>
+        </div>
+
+        <footer
+            class="mt-10 border-t border-slate-200 pt-8 text-sm text-slate-600 dark:border-slate-800 dark:text-slate-300">
+            <div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 sm:flex-row sm:items-center sm:justify-between">
+                <div class="flex items-center gap-2">
+                    <div
+                        class="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br from-purple-600 to-fuchsia-600 text-white">
+                        <span class="text-sm font-bold">D3</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-slate-900 dark:text-white">D3 Travel</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">© <span id="year"></span> — Modern UI demo
+                        </p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-4">
+                    <a class="hover:text-slate-900 dark:hover:text-white" href="#routes">Rute</a>
+                    <a class="hover:text-slate-900 dark:hover:text-white" href="#services">Layanan</a>
+                    <a class="hover:text-slate-900 dark:hover:text-white" href="#features">Keunggulan</a>
+                    <a class="hover:text-slate-900 dark:hover:text-white" href="#about">Tentang</a>
+                    <a class="hover:text-slate-900 dark:hover:text-white" href="#gallery">Galeri</a>
+                    <a class="hover:text-slate-900 dark:hover:text-white" href="https://wa.me/6282298900309"
+                        target="_blank" rel="noreferrer">WhatsApp</a>
+                </div>
+            </div>
+        </footer>
+    </section>
+
+    <script>
+        // ===== Theme (dark/light) =====
+        const root = document.documentElement;
+        const themeBtn = document.getElementById("themeBtn");
+        const themeIcon = document.getElementById("themeIcon");
+
+        function applyTheme(mode) {
+            if (mode === "dark") {
+                root.classList.add("dark");
+                themeIcon.textContent = "☀️";
+            } else {
+                root.classList.remove("dark");
+                themeIcon.textContent = "🌙";
+            }
+            localStorage.setItem("theme", mode);
+        }
+
+        const saved = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        applyTheme(saved || (prefersDark ? "dark" : "light"));
+
+        themeBtn.addEventListener("click", () => {
+            applyTheme(root.classList.contains("dark") ? "light" : "dark");
+        });
+
+        // ===== Mobile menu =====
+        const menuBtn = document.getElementById("menuBtn");
+        const mobileMenu = document.getElementById("mobileMenu");
+        const menuIcon = document.getElementById("menuIcon");
+
+        menuBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
+            // Toggle icon between hamburger and X
+            menuIcon.textContent = mobileMenu.classList.contains("hidden") ? "☰" : "✕";
+        });
+
+        // Close mobile menu when clicking a link (except external links)
+        document.querySelectorAll(".mobile-menu-link").forEach(link => {
+            link.addEventListener("click", () => {
+                mobileMenu.classList.add("hidden");
+                menuIcon.textContent = "☰";
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener("click", (e) => {
+            if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target) && !mobileMenu.classList.contains("hidden")) {
+                mobileMenu.classList.add("hidden");
+                menuIcon.textContent = "☰";
+            }
+        });
+
+        // ===== Travelers counter =====
+        let travelers = 2;
+        const travCount = document.getElementById("travCount");
+        document.getElementById("decBtn").addEventListener("click", () => {
+            travelers = Math.max(1, travelers - 1);
+            travCount.textContent = travelers;
+        });
+        document.getElementById("incBtn").addEventListener("click", () => {
+            travelers = Math.min(12, travelers + 1);
+            travCount.textContent = travelers;
+        });
+
+        // ===== Cek Tarif Button =====
+        document.getElementById("cekTarifBtn").addEventListener("click", () => {
+            const searchQuery = qInput.value || "";
+            const selectedService = svcSelect.value === "All" ? "Door to Door" : svcSelect.value;
+            const selectedDate = dateInput.value || new Date().toISOString().split('T')[0];
+            const pax = travelers;
+
+            // Parse dari dan ke
+            let dari = "(Kota Asal)";
+            let ke = "(Kota Tujuan)";
+
+            if (searchQuery) {
+                if (searchQuery.includes("ke ") || searchQuery.includes("→") || searchQuery.includes("-")) {
+                    const parts = searchQuery.split(/ke |→|-/i);
+                    if (parts.length >= 2) {
+                        dari = parts[0].trim() || "(Kota Asal)";
+                        ke = parts[1].trim() || "(Kota Tujuan)";
+                    }
+                } else {
+                    dari = searchQuery;
+                }
+            }
+
+            // Generate pesan WhatsApp
+            const message = `Halo admin D3 Travel, Cek Info Tarif Travel ${selectedService} tanggal ${selectedDate} dari ${dari} ke ${ke} untuk ${pax} orang penumpang.`;
+
+            // Redirect ke WhatsApp
+            window.open(`https://wa.me/6282298900309?text=${encodeURIComponent(message)}`, "_blank");
+        });
+
+        // ===== Route data (edit sesuai kebutuhan) =====
+        const ROUTES = [
+            {
+                id: "tasik-soetta",
+                title: "Tasikmalaya ↔ Bandara Soekarno Hatta",
+                from: "Tasikmalaya",
+                to: "Bandara Soekarno Hatta",
+                service: "Door to Door",
+                priceFrom: 180000,
+                duration: "± 6–8 jam",
+                perks: ["Full AC", "Free Charger", "Bagasi Luas", "Driver Profesional"],
+                cover: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80",
+            },
+            {
+                id: "tasik-jakarta",
+                title: "Tasikmalaya ↔ Jakarta",
+                from: "Tasikmalaya",
+                to: "Jakarta",
+                service: "Door to Door",
+                priceFrom: 160000,
+                duration: "± 5–7 jam",
+                perks: ["Door-to-door", "AC", "Armada Terawat"],
+                cover: "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=1400&q=80",
+            },
+            {
+                id: "jakarta-jabodetabek",
+                title: "Jakarta ↔ Jabodetabek",
+                from: "Jakarta",
+                to: "Jabodetabek",
+                service: "Door to Door",
+                priceFrom: 120000,
+                duration: "± 1–3 jam",
+                perks: ["Fleksibel", "Nyaman", "Quick pickup"],
+                cover: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1400&q=80",
+            },
+            {
+                id: "tasik-bandung",
+                title: "Tasikmalaya ↔ Bandung",
+                from: "Tasikmalaya",
+                to: "Bandung",
+                service: "Door to Door",
+                priceFrom: 140000,
+                duration: "± 3–4 jam",
+                perks: ["Berangkat harian", "AC", "Charger"],
+                cover: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?auto=format&fit=crop&w=1400&q=80",
+            },
+            {
+                id: "rental",
+                title: "Rental Mobil + Driver",
+                from: "Custom",
+                to: "Custom",
+                service: "Rental Mobil",
+                priceFrom: 450000,
+                duration: "12 jam",
+                perks: ["Avanza/Hiace/Elf", "Driver", "Bisa luar kota"],
+                cover: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80",
+            },
+            {
+                id: "paket-kilat",
+                title: "Titip Paket Kilat",
+                from: "Tasik/Ciamis",
+                to: "Jabodetabek",
+                service: "Titip Paket",
+                priceFrom: 50000,
+                duration: "Same day / Next day",
+                perks: ["Aman", "Cepat", "Update via WA"],
+                cover: "https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=1400&q=80",
+            },
+        ];
+
+        // ===== Render & filter =====
+        const qInput = document.getElementById("qInput");
+        const svcSelect = document.getElementById("svcSelect");
+        const dateInput = document.getElementById("dateInput");
+        const routesGrid = document.getElementById("routesGrid");
+        const countLabel = document.getElementById("countLabel");
+
+        function formatIDR(n) {
+            return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(n);
+        }
+
+        function routeCard(r) {
+            const selectedDate = dateInput.value || new Date().toISOString().split('T')[0];
+            const message = `Halo admin D3 Travel, Cek Info Tarif Travel ${r.service} tanggal ${selectedDate} dari ${r.from} ke ${r.to} untuk ${travelers} orang penumpang.`;
+            const waLink = `https://wa.me/6282298900309?text=${encodeURIComponent(message)}`;
+
+            return `
+        <article class="group overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-slate-800 dark:bg-slate-900">
+          <div class="relative">
+            <img src="${r.cover}" alt="${r.title}" loading="lazy"
+              class="h-44 w-full object-cover transition duration-300 group-hover:scale-[1.03]" />
+            <div class="absolute left-3 top-3 inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-1 text-xs font-semibold text-slate-800 backdrop-blur dark:bg-slate-950/60 dark:text-slate-100 dark:border dark:border-slate-800">
+              <span class="h-2 w-2 rounded-full bg-slate-900/70 dark:bg-white/70"></span>
+              ${r.service}
+            </div>
+          </div>
+
+          <div class="p-4">
+            <h3 class="text-sm font-semibold">${r.title}</h3>
+            <p class="mt-1 text-xs text-slate-600 dark:text-slate-300">
+              Durasi ${r.duration} • Mulai ${formatIDR(r.priceFrom)}
+            </p>
+
+            <div class="mt-3 flex flex-wrap gap-2">
+              ${r.perks.slice(0, 3).map(p => `
+                <span class="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-[11px] text-slate-700 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200">${p}</span>
+              `).join("")}
+            </div>
+
+            <div class="mt-4 flex flex-col gap-2">
+              <div class="flex items-center justify-between gap-2">
+                <a href="detail.html?id=${encodeURIComponent(r.id)}"
+                  class="flex-1 rounded-2xl border border-slate-200 bg-white px-3 py-2 text-center text-xs font-semibold text-slate-800 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-slate-800">
+                  Detail
+                </a>
+
+                <a href="${waLink}" target="_blank" rel="noreferrer"
+                  class="flex-1 rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-3 py-2 text-center text-xs font-semibold text-white hover:from-purple-700 hover:to-fuchsia-700">
+                  Cek Tarif via WA
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+      `;
+        }
+
+        function renderRoutes() {
+            const q = (qInput.value || "").trim().toLowerCase();
+            const svc = svcSelect.value;
+
+            const filtered = ROUTES.filter(r => {
+                const matchQ = !q || [r.title, r.from, r.to, r.service].join(" ").toLowerCase().includes(q);
+                const matchS = (svc === "All") || (r.service === svc);
+                return matchQ && matchS;
+            });
+
+            routesGrid.innerHTML = filtered.map(routeCard).join("");
+            countLabel.textContent = filtered.length;
+        }
+
+        qInput.addEventListener("input", renderRoutes);
+        svcSelect.addEventListener("change", renderRoutes);
+        dateInput.addEventListener("change", renderRoutes);
+
+        // ===== Footer year =====
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Initial
+        renderRoutes();
+
+        // ===== Gallery navigation (optional simple implementation) =====
+        const galleryPrev = document.getElementById("galleryPrev");
+        const galleryNext = document.getElementById("galleryNext");
+        const galleryTrack = document.getElementById("galleryTrack");
+
+        // Simple scroll functionality
+        if (galleryPrev && galleryNext && galleryTrack) {
+            galleryPrev.addEventListener("click", () => {
+                galleryTrack.scrollBy({ left: -300, behavior: "smooth" });
+            });
+            galleryNext.addEventListener("click", () => {
+                galleryTrack.scrollBy({ left: 300, behavior: "smooth" });
+            });
+        }
+
+        // ===== Service Cards Click to WhatsApp =====
+        document.querySelectorAll(".service-card").forEach(card => {
+            card.addEventListener("click", function () {
+                const serviceName = this.getAttribute("data-service");
+                const searchQuery = qInput.value || "";
+                const selectedDate = dateInput.value || new Date().toISOString().split('T')[0];
+                const pax = travelers;
+
+                // Parse dari dan ke dari search query (jika ada)
+                let dari = searchQuery || "(Kota Asal)";
+                let ke = "(Kota Tujuan)";
+
+                // Jika ada arrow atau kata kunci di search
+                if (searchQuery.includes("ke ") || searchQuery.includes("→") || searchQuery.includes("-")) {
+                    const parts = searchQuery.split(/ke |→|-/i);
+                    if (parts.length >= 2) {
+                        dari = parts[0].trim() || "(Kota Asal)";
+                        ke = parts[1].trim() || "(Kota Tujuan)";
+                    }
+                }
+
+                // Format tanggal
+                const dateObj = new Date(selectedDate);
+                const formattedDate = selectedDate;
+
+                // Generate pesan WhatsApp
+                const message = `Halo admin D3 Travel, Cek Info Tarif Travel ${serviceName} tanggal ${formattedDate} dari ${dari} ke ${ke} untuk ${pax} orang penumpang.`;
+
+                // Redirect ke WhatsApp
+                window.open(`https://wa.me/6282298900309?text=${encodeURIComponent(message)}`, "_blank");
+            });
+        });
+    </script>
+</body>
+
+</html>

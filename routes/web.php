@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Frontend Routes (Public)
+Route::get('/', [App\Http\Controllers\FrontendController::class, 'index'])->name('frontend.index');
+Route::get('/route/{id}', [App\Http\Controllers\FrontendController::class, 'routeDetail'])->name('frontend.route.detail');
 
 Auth::routes();
 

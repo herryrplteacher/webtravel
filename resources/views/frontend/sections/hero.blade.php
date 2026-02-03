@@ -17,7 +17,7 @@
             </h1>
 
             <p class="mt-4 max-w-xl text-base leading-relaxed text-slate-600 dark:text-slate-300">
-                Pilih rute, cek jadwal, lalu konfirmasi via WhatsApp. UI modern, alur simpel, info rapi.
+                Pilih rute, cek jadwal, lalu konfirmasi via WhatsApp., alur simpel, info rapi.
             </p>
 
             <!-- Search Card -->

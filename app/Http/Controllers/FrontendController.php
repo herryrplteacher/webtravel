@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TestimonialRequest;
 use App\Models\Page;
 use App\Models\Route;
 use App\Models\Service;
 use App\Models\Setting;
+use App\Models\Testimonial;
 
 class FrontendController extends Controller
 {
@@ -31,7 +33,13 @@ class FrontendController extends Controller
             ->where('is_published', true)
             ->first();
 
-        return view('frontend.index', compact('routes', 'services', 'settings', 'aboutPage'));
+        // Get active testimonials
+        $testimonials = Testimonial::where('is_active', true)
+            ->latest()
+            ->limit(6)
+            ->get();
+
+        return view('frontend.index', compact('routes', 'services', 'settings', 'aboutPage', 'testimonials'));
     }
 
     /**
@@ -67,15 +75,37 @@ class FrontendController extends Controller
             $route = Route::with(['from_location', 'to_location'])->find($routeId);
             if ($route) {
                 $message = "Halo, saya ingin booking travel dari {$route->from_location->name} ke {$route->to_location->name}. Mohon info detail dan ketersediaan.";
-                return "https://wa.me/{$waNumber}?text=" . urlencode($message);
+
+                return "https://wa.me/{$waNumber}?text=".urlencode($message);
             }
         }
 
         if ($service) {
             $message = "Halo, saya ingin tanya tentang layanan {$service}. Mohon info lebih lanjut.";
-            return "https://wa.me/{$waNumber}?text=" . urlencode($message);
+
+            return "https://wa.me/{$waNumber}?text=".urlencode($message);
         }
 
         return "https://wa.me/{$waNumber}";
+    }
+
+    /**
+     * Store testimonial from frontend
+     */
+    public function storeTestimonial(TestimonialRequest $request)
+    {
+        $validated = $request->validated();
+
+        // Set default is_active to false for customer submissions (pending review)
+        $validated['is_active'] = false;
+
+        if ($request->hasFile('photo')) {
+            $validated['photo'] = $request->file('photo')->store('testimonials', 'public');
+        }
+
+        Testimonial::create($validated);
+
+        return redirect()->route('frontend.index')
+            ->with('testimonial_success', 'Terima kasih! Testimoni Anda telah dikirim dan akan direview oleh admin.');
     }
 }

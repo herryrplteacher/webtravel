@@ -147,7 +147,7 @@
                                                             </a>
 
                                                             <a href="${waLink}" target="_blank" rel="noreferrer"
-                                                              class="flex-1 rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-3 py-2 text-center text-xs font-semibold text-white hover:from-purple-700 hover:to-fuchsia-700">
+                                                              class="flex-1 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 px-3 py-2 text-center text-xs font-semibold text-white hover:from-blue-700 hover:to-cyan-700">
                                                               Cek Tarif via WA
                                                             </a>
                                                           </div>

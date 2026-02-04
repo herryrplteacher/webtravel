@@ -72,12 +72,12 @@
     <!-- Background blobs -->
     <div class="pointer-events-none fixed inset-0 -z-10">
         <div
-            class="absolute -top-24 left-1/2 h-72 w-[42rem] -translate-x-1/2 rounded-full bg-gradient-to-r from-purple-200/60 via-violet-200/60 to-fuchsia-200/60 blur-3xl dark:from-purple-500/15 dark:via-violet-500/15 dark:to-fuchsia-500/15">
+            class="absolute -top-24 left-1/2 h-72 w-[42rem] -translate-x-1/2 rounded-full bg-gradient-to-r from-blue-200/60 via-sky-200/60 to-cyan-200/60 blur-3xl dark:from-blue-500/15 dark:via-sky-500/15 dark:to-cyan-500/15">
         </div>
-        <div class="absolute top-72 left-10 h-56 w-56 rounded-full bg-purple-200/40 blur-3xl dark:bg-purple-500/10">
+        <div class="absolute top-72 left-10 h-56 w-56 rounded-full bg-blue-200/40 blur-3xl dark:bg-blue-500/10">
         </div>
         <div
-            class="absolute bottom-24 right-10 h-72 w-72 rounded-full bg-fuchsia-200/30 blur-3xl dark:bg-fuchsia-500/10">
+            class="absolute bottom-24 right-10 h-72 w-72 rounded-full bg-cyan-200/30 blur-3xl dark:bg-cyan-500/10">
         </div>
     </div>
 

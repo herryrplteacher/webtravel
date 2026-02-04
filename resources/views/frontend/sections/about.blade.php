@@ -5,7 +5,7 @@
         <div class="grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:items-center">
             <div>
                 <h2 class="text-2xl font-semibold tracking-tight">Tentang Kami</h2>
-                
+
                 @if($aboutPage)
                     <div class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300 prose prose-sm dark:prose-invert max-w-none">
                         {!! Str::limit($aboutPage->content, 500) !!}
@@ -32,7 +32,7 @@
                         ['value' => '24/7', 'label' => 'Layanan siaga'],
                     ];
                     @endphp
-                    
+
                     @foreach($stats as $stat)
                     <div
                         class="rounded-3xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
@@ -65,7 +65,7 @@
         </div>
 
         <div
-            class="mt-8 rounded-3xl border border-slate-200 bg-gradient-to-br from-purple-50 to-fuchsia-50 p-6 dark:border-slate-800 dark:from-purple-950/30 dark:to-fuchsia-950/30">
+            class="mt-8 rounded-3xl border border-slate-200 bg-gradient-to-br from-blue-50 to-cyan-50 p-6 dark:border-slate-800 dark:from-blue-950/30 dark:to-cyan-950/30">
             <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                     <h3 class="text-lg font-semibold">Visi & Misi Kami</h3>
@@ -75,7 +75,7 @@
                         keamanan di setiap perjalanan.
                     </p>
                 </div>
-                <a class="inline-flex rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-4 py-2 text-sm font-semibold text-white hover:from-purple-700 hover:to-fuchsia-700"
+                <a class="inline-flex rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 px-4 py-2 text-sm font-semibold text-white hover:from-blue-700 hover:to-cyan-700"
                     href="https://wa.me/{{ $settings['whatsapp_number'] ?? '6282298900309' }}" target="_blank" rel="noreferrer">
                     Hubungi Kami
                 </a>

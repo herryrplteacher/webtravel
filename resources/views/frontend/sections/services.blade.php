@@ -8,7 +8,7 @@
                 <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Satu tempat untuk kebutuhan perjalanan
                     kamu.</p>
             </div>
-            <a class="rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-4 py-2 text-sm font-semibold text-white hover:from-purple-700 hover:to-fuchsia-700"
+            <a class="rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 px-4 py-2 text-sm font-semibold text-white hover:from-blue-700 hover:to-cyan-700"
                 href="https://wa.me/{{ $settings['whatsapp_number'] ?? '6282298900309' }}" target="_blank"
                 rel="noreferrer">
                 Booking via WhatsApp
@@ -18,12 +18,12 @@
         <div class="mt-6 grid gap-4 md:grid-cols-4">
             @foreach($services as $service)
                 <div data-service="{{ $service->name }}"
-                    class="service-card cursor-pointer rounded-3xl border border-slate-200 bg-slate-50 p-4 transition-all hover:scale-105 hover:border-purple-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950 dark:hover:border-purple-700">
+                    class="service-card cursor-pointer rounded-3xl border border-slate-200 bg-slate-50 p-4 transition-all hover:scale-105 hover:border-blue-300 hover:shadow-lg dark:border-slate-800 dark:bg-slate-950 dark:hover:border-blue-700">
                     <p class="text-xs font-semibold text-slate-600 dark:text-slate-300">{{ $service->name }}</p>
                     <p class="mt-2 text-base font-semibold">{{ $service->title ?? $service->name }}</p>
                     <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">{{ Str::limit($service->description, 60) }}
                     </p>
-                    <p class="mt-3 text-xs font-semibold text-purple-600 dark:text-purple-400">Klik untuk cek tarif →
+                    <p class="mt-3 text-xs font-semibold text-blue-600 dark:text-blue-400">Klik untuk cek tarif →
                     </p>
                 </div>
             @endforeach

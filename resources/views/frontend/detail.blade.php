@@ -28,7 +28,7 @@
             <div class="mt-6">
                 <div
                     class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-700 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200">
-                    <span class="h-2 w-2 rounded-full bg-fuchsia-500"></span>
+                    <span class="h-2 w-2 rounded-full bg-cyan-500"></span>
                     {{ $route->service->name ?? 'Door to Door' }}
                 </div>
 
@@ -63,7 +63,7 @@
                         @foreach($route->facilities as $facility)
                             <span
                                 class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200">
-                                <span class="h-2 w-2 rounded-full bg-purple-500"></span>
+                                <span class="h-2 w-2 rounded-full bg-blue-500"></span>
                                 {{ $facility->label }}
                             </span>
                         @endforeach
@@ -131,19 +131,19 @@
                 <h2 class="text-lg font-semibold">Catatan Penting</h2>
                 <ul class="mt-4 space-y-3">
                     <li class="flex gap-3 text-sm text-slate-600 dark:text-slate-300">
-                        <span class="text-purple-600 dark:text-purple-400">✓</span>
+                        <span class="text-blue-600 dark:text-blue-400">✓</span>
                         <span>Harga dapat berubah tergantung lokasi jemput & antar (door-to-door).</span>
                     </li>
                     <li class="flex gap-3 text-sm text-slate-600 dark:text-slate-300">
-                        <span class="text-purple-600 dark:text-purple-400">✓</span>
+                        <span class="text-blue-600 dark:text-blue-400">✓</span>
                         <span>Konfirmasi booking ditunggu minimal 3–6 jam sebelum keberangkatan.</span>
                     </li>
                     <li class="flex gap-3 text-sm text-slate-600 dark:text-slate-300">
-                        <span class="text-purple-600 dark:text-purple-400">✓</span>
+                        <span class="text-blue-600 dark:text-blue-400">✓</span>
                         <span>Bagasi lebih (over size) bisa dikenakan biaya tambahan.</span>
                     </li>
                     <li class="flex gap-3 text-sm text-slate-600 dark:text-slate-300">
-                        <span class="text-purple-600 dark:text-purple-400">✓</span>
+                        <span class="text-blue-600 dark:text-blue-400">✓</span>
                         <span>Untuk rombongan / charter khusus, silakan hubungi via WhatsApp.</span>
                     </li>
                 </ul>
@@ -151,18 +151,18 @@
 
             <!-- CTA Booking -->
             <div
-                class="mt-8 rounded-3xl border border-slate-200 bg-gradient-to-br from-purple-50 to-fuchsia-50 p-6 dark:border-slate-800 dark:from-purple-950/30 dark:to-fuchsia-950/30">
+                class="mt-8 rounded-3xl border border-slate-200 bg-gradient-to-br from-blue-50 to-cyan-50 p-6 dark:border-slate-800 dark:from-blue-950/30 dark:to-cyan-950/30">
                 <h3 class="text-lg font-semibold">Booking Cepat</h3>
                 <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Isi data & lanjut checkout</p>
 
                 <div class="mt-4 flex flex-col gap-3 sm:flex-row">
                     <a href="https://wa.me/{{ $settings['whatsapp_number'] ?? '6282298900309' }}?text={{ urlencode('Halo, saya ingin booking travel dari ' . $route->from_location->name . ' ke ' . $route->to_location->name . '. Mohon info detail dan ketersediaan.') }}"
                         target="_blank" rel="noreferrer"
-                        class="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-6 py-3 text-sm font-semibold text-white hover:from-purple-700 hover:to-fuchsia-700">
+                        class="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 px-6 py-3 text-sm font-semibold text-white hover:from-blue-700 hover:to-cyan-700">
                         💬 Chat WhatsApp
                     </a>
                     <a href="{{ route('frontend.index') }}#routes"
-                        class="inline-flex items-center justify-center gap-2 rounded-2xl border-2 border-purple-600 bg-white px-6 py-3 text-sm font-semibold text-purple-700 hover:bg-purple-50 dark:border-purple-500 dark:bg-slate-900 dark:text-purple-300 dark:hover:bg-slate-800">
+                        class="inline-flex items-center justify-center gap-2 rounded-2xl border-2 border-blue-600 bg-white px-6 py-3 text-sm font-semibold text-blue-700 hover:bg-blue-50 dark:border-blue-500 dark:bg-slate-900 dark:text-blue-300 dark:hover:bg-slate-800">
                         ← Lihat Rute Lain
                     </a>
                 </div>

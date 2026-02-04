@@ -4,14 +4,14 @@
         <div class="animate-fadeUp">
             <div
                 class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/70 px-3 py-1 text-xs font-medium text-slate-700 shadow-sm backdrop-blur dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-200">
-                <span class="inline-block h-2 w-2 rounded-full bg-fuchsia-500"></span>
+                <span class="inline-block h-2 w-2 rounded-full bg-cyan-500"></span>
                 Door-to-door • Armada nyaman • Driver profesional
             </div>
 
             <h1 class="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
                 Booking travel antar kota jadi
                 <span
-                    class="bg-gradient-to-r from-purple-700 via-violet-600 to-fuchsia-600 bg-clip-text text-transparent dark:from-purple-200 dark:via-violet-200 dark:to-fuchsia-200">
+                    class="bg-gradient-to-r from-blue-700 via-sky-600 to-cyan-600 bg-clip-text text-transparent dark:from-blue-200 dark:via-sky-200 dark:to-cyan-200">
                     cepat & elegan
                 </span>.
             </h1>
@@ -72,11 +72,11 @@
 
                     <div class="flex flex-col gap-2 sm:flex-row">
                         <button id="cekTarifBtn"
-                            class="inline-flex items-center justify-center gap-2 rounded-2xl border-2 border-purple-600 bg-white px-4 py-3 text-sm font-semibold text-purple-700 shadow-sm hover:bg-purple-50 dark:border-purple-500 dark:bg-slate-900 dark:text-purple-300 dark:hover:bg-slate-800">
+                            class="inline-flex items-center justify-center gap-2 rounded-2xl border-2 border-blue-600 bg-white px-4 py-3 text-sm font-semibold text-blue-700 shadow-sm hover:bg-blue-50 dark:border-blue-500 dark:bg-slate-900 dark:text-blue-300 dark:hover:bg-slate-800">
                             💬 Cek Tarif via WA
                         </button>
                         <a href="#routes"
-                            class="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:from-purple-700 hover:to-fuchsia-700">
+                            class="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 px-4 py-3 text-sm font-semibold text-white shadow-sm hover:from-blue-700 hover:to-cyan-700">
                             Lihat rute tersedia <span aria-hidden="true">→</span>
                         </a>
                     </div>
@@ -116,7 +116,7 @@
                         <p class="text-sm font-semibold">Door-to-door nyaman</p>
                         <p class="text-xs text-slate-600 dark:text-slate-300">Konfirmasi cepat via WhatsApp</p>
                     </div>
-                    <a class="rounded-2xl bg-white px-3 py-2 text-sm font-semibold text-purple-700 shadow-sm hover:bg-slate-50 dark:bg-slate-900 dark:text-purple-300 dark:hover:bg-slate-800"
+                    <a class="rounded-2xl bg-white px-3 py-2 text-sm font-semibold text-blue-700 shadow-sm hover:bg-slate-50 dark:bg-slate-900 dark:text-blue-300 dark:hover:bg-slate-800"
                         href="https://wa.me/{{ $settings['whatsapp_number'] ?? '6282298900309' }}" target="_blank"
                         rel="noreferrer">
                         Chat

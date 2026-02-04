@@ -8,7 +8,7 @@
                 </p>
             </div>
             <button onclick="toggleTestimonialModal()"
-                class="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:from-purple-700 hover:to-fuchsia-700">
+                class="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:from-blue-700 hover:to-cyan-700">
                 <span>✍️</span> Tulis Testimoni
             </button>
         </div>
@@ -108,7 +108,7 @@
                     Nama Lengkap <span class="text-red-500">*</span>
                 </label>
                 <input type="text" name="name" value="{{ old('name') }}" required
-                    class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100"
+                    class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100"
                     placeholder="Masukkan nama Anda">
                 @error('name')
                     <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -119,7 +119,7 @@
                 <div>
                     <label class="block mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">Posisi</label>
                     <input type="text" name="position" value="{{ old('position') }}"
-                        class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100"
+                        class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100"
                         placeholder="Contoh: Manager">
                     @error('position')
                         <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -129,7 +129,7 @@
                 <div>
                     <label class="block mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">Perusahaan</label>
                     <input type="text" name="company" value="{{ old('company') }}"
-                        class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100"
+                        class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100"
                         placeholder="Contoh: PT. ABC">
                     @error('company')
                         <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -142,7 +142,7 @@
                     Pesan Testimoni <span class="text-red-500">*</span>
                 </label>
                 <textarea name="message" rows="4" required
-                    class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100"
+                    class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100"
                     placeholder="Ceritakan pengalaman Anda menggunakan layanan kami...">{{ old('message') }}</textarea>
                 @error('message')
                     <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -174,7 +174,7 @@
             <div>
                 <label class="block mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">Foto (Opsional)</label>
                 <input type="file" name="photo" accept="image/*"
-                    class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100">
+                    class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100">
                 @error('photo')
                     <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                 @enderror
@@ -189,7 +189,7 @@
 
             <div class="flex gap-3 pt-2">
                 <button type="submit"
-                    class="flex-1 inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:from-purple-700 hover:to-fuchsia-700">
+                    class="flex-1 inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:from-blue-700 hover:to-cyan-700">
                     Kirim Testimoni
                 </button>
                 <button type="button" onclick="toggleTestimonialModal()"

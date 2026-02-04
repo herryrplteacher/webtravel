@@ -2,7 +2,7 @@
     <div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 sm:flex-row sm:items-center sm:justify-between">
         <div class="flex items-center gap-2">
             <div
-                class="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br from-purple-600 to-fuchsia-600 text-white">
+                class="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-600 text-white">
                 <span class="text-sm font-bold">{{ substr($settings['site_name'] ?? 'D3', 0, 2) }}</span>
             </div>
             <div>

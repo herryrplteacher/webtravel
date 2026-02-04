@@ -17,21 +17,21 @@
             </h1>
 
             <p class="mt-4 max-w-xl text-base leading-relaxed text-slate-600 dark:text-slate-300">
-                Pilih rute, cek jadwal, lalu konfirmasi via WhatsApp., alur simpel, info rapi.
+                Pilih rute, cek jadwal, lalu konfirmasi via WhatsApp.
             </p>
 
             <!-- Search Card -->
             <div
                 class="mt-6 rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-soft backdrop-blur dark:border-slate-800 dark:bg-slate-900/60">
-                <div class="grid gap-3 md:grid-cols-4">
-                    <div class="md:col-span-2">
-                        <label class="text-xs font-medium text-slate-600 dark:text-slate-300">Dari / Ke</label>
+                <div class="grid gap-3 md:grid-cols-2">
+                    <div>
+                        <label class="text-xs font-medium text-slate-600 dark:text-slate-300">Kota Asal</label>
                         <div
                             class="mt-1 flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-3 py-2 dark:border-slate-800 dark:bg-slate-950">
                             <span class="text-slate-400">⌕</span>
                             <input id="qInput"
                                 class="w-full bg-transparent text-sm outline-none placeholder:text-slate-400 dark:placeholder:text-slate-600"
-                                placeholder="Contoh: Tasikmalaya, Jakarta, Bandara..." />
+                                placeholder="tegal" />
                         </div>
                     </div>
 
@@ -44,6 +44,17 @@
                                 <option value="{{ $service->name }}">{{ $service->name }}</option>
                             @endforeach
                         </select>
+                    </div>
+
+                    <div>
+                        <label class="text-xs font-medium text-slate-600 dark:text-slate-300">Kota Tujuan</label>
+                        <div
+                            class="mt-1 flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-3 py-2 dark:border-slate-800 dark:bg-slate-950">
+                            <span class="text-slate-400">⌕</span>
+                            <input id="toInput"
+                                class="w-full bg-transparent text-sm outline-none placeholder:text-slate-400 dark:placeholder:text-slate-600"
+                                placeholder="jakarta" />
+                        </div>
                     </div>
 
                     <div>

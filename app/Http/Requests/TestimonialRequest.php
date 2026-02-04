@@ -27,7 +27,7 @@ class TestimonialRequest extends FormRequest
             'company' => ['nullable', 'string', 'max:255'],
             'message' => ['required', 'string'],
             'rating' => ['required', 'integer', 'min:1', 'max:5'],
-            'photo' => ['nullable', 'image', 'max:2048'],
+            'photo' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
             'is_active' => ['nullable', 'boolean'],
         ];
     }

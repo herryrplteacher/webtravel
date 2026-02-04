@@ -18,8 +18,9 @@
                 <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
                     @if ($testimonial->photo)
                         <div class="mb-3 flex items-center gap-3">
-                            <img src="{{ Storage::url($testimonial->photo) }}" alt="{{ $testimonial->name }}"
-                                class="h-12 w-12 rounded-full object-cover border-2 border-slate-200 dark:border-slate-700">
+                            <img src="{{ asset('storage/' . $testimonial->photo) }}" alt="{{ $testimonial->name }}"
+                                class="h-12 w-12 rounded-full object-cover border-2 border-slate-200 dark:border-slate-700"
+                                onerror="this.style.display='none'">
                             <div>
                                 <p class="text-sm font-semibold text-slate-800 dark:text-slate-100">
                                     {{ $testimonial->name }}</p>

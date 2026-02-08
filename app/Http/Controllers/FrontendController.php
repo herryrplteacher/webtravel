@@ -76,7 +76,7 @@ class FrontendController extends Controller
      */
     public function getWhatsAppLink($routeId = null, $service = null)
     {
-        $waNumber = Setting::where('key_name', 'whatsapp_number')->value('value') ?? '6282298900309';
+        $waNumber = Setting::where('key_name', 'wa_number')->value('value') ?? '6282298900309';
 
         if ($routeId) {
             $route = Route::with(['from_location', 'to_location'])->find($routeId);

@@ -22,7 +22,7 @@
             <a class="hover:text-slate-900 dark:hover:text-white"
                 href="{{ route('frontend.index') }}#gallery">Galeri</a>
             <a class="hover:text-slate-900 dark:hover:text-white"
-                href="https://wa.me/{{ $settings['whatsapp_number'] ?? '6282298900309' }}" target="_blank"
+                href="https://wa.me/{{ $settings['wa_number'] ?? '6282298900309' }}" target="_blank"
                 rel="noreferrer">WhatsApp</a>
         </div>
     </div>

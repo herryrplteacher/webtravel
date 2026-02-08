@@ -18,52 +18,7 @@
     <meta property="og:description" content="@yield('description', 'Layanan travel terpercaya')" />
     <meta property="og:type" content="website" />
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    boxShadow: { soft: "0 14px 40px rgba(2, 6, 23, 0.10)" },
-                    keyframes: {
-                        floaty: { "0%,100%": { transform: "translateY(0px)" }, "50%": { transform: "translateY(-8px)" } },
-                        fadeUp: { "0%": { opacity: 0, transform: "translateY(10px)" }, "100%": { opacity: 1, transform: "translateY(0)" } }
-                    },
-                    animation: {
-                        floaty: "floaty 8s ease-in-out infinite",
-                        fadeUp: "fadeUp .6s ease-out both"
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        html {
-            text-rendering: geometricPrecision;
-            scroll-behavior: smooth;
-        }
-
-        #mobileMenu {
-            transition: all 0.3s ease-in-out;
-            max-height: 0;
-            opacity: 0;
-        }
-
-        #mobileMenu:not(.hidden) {
-            max-height: 500px;
-            opacity: 1;
-        }
-
-        #menuIcon {
-            transition: transform 0.2s ease;
-            display: inline-block;
-        }
-
-        .mobile-menu-link {
-            transition: all 0.2s ease;
-        }
-    </style>
+    @vite(['resources/css/app.css'])
 
     @stack('styles')
 </head>

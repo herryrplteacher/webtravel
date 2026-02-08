@@ -9,7 +9,7 @@
                     kamu.</p>
             </div>
             <a class="rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 px-4 py-2 text-sm font-semibold text-white hover:from-blue-700 hover:to-cyan-700"
-                href="https://wa.me/{{ $settings['whatsapp_number'] ?? '6282298900309' }}" target="_blank"
+                href="https://wa.me/{{ $settings['wa_number'] ?? '6282298900309' }}" target="_blank"
                 rel="noreferrer">
                 Booking via WhatsApp
             </a>

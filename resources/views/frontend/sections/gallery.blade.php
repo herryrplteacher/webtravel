@@ -71,7 +71,7 @@
             <p class="text-sm text-slate-600 dark:text-slate-300">
                 📸 Lihat lebih banyak foto armada dan testimoni pelanggan di
                 <a class="font-semibold text-slate-900 hover:underline dark:text-white"
-                    href="https://wa.me/{{ $settings['whatsapp_number'] ?? '6282298900309' }}" target="_blank"
+                    href="https://wa.me/{{ $settings['wa_number'] ?? '6282298900309' }}" target="_blank"
                     rel="noreferrer">WhatsApp Business kami</a>
             </p>
         </div>

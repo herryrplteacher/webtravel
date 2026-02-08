@@ -12,7 +12,7 @@
                 href="mailto:{{ $settings['email'] ?? 'info@d3travel.com' }}">{{ $settings['email'] ?? 'info@d3travel.com' }}</a>
             <span class="opacity-60">•</span>
             <a class="hover:text-slate-900 dark:hover:text-white"
-                href="https://wa.me/{{ $settings['whatsapp_number'] ?? '6282298900309' }}" target="_blank"
+                href="https://wa.me/{{ $settings['wa_number'] ?? '6282298900309' }}" target="_blank"
                 rel="noreferrer">WA: {{ $settings['whatsapp_display'] ?? '0822-9890-0309' }}</a>
         </div>
     </div>

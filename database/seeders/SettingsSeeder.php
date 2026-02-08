@@ -22,7 +22,7 @@ class SettingsSeeder extends Seeder
             // Contact Info
             ['key_name' => 'email', 'value' => 'info@d3travel.com'],
             ['key_name' => 'phone', 'value' => '082298900309'],
-            ['key_name' => 'whatsapp_number', 'value' => '6282298900309'],
+            ['key_name' => 'wa_number', 'value' => '6282298900309'],
             ['key_name' => 'whatsapp_display', 'value' => '0822-9890-0309'],
 
             // Address

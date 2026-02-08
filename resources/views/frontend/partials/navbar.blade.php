@@ -29,7 +29,7 @@
                 <span id="themeIcon">🌙</span>
             </button>
 
-            <a href="https://wa.me/{{ $settings['whatsapp_number'] ?? '6282298900309' }}" target="_blank"
+            <a href="https://wa.me/{{ $settings['wa_number'] ?? '6282298900309' }}" target="_blank"
                 rel="noreferrer"
                 class="hidden rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:from-blue-700 hover:to-cyan-700 sm:inline-flex">
                 Chat WhatsApp
@@ -61,7 +61,7 @@
                 <a class="mobile-menu-link rounded-2xl px-3 py-2 hover:bg-slate-50 dark:hover:bg-slate-800"
                     href="#reviews">Testimoni</a>
                 <a class="rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 px-3 py-2 text-center font-semibold text-white hover:from-blue-700 hover:to-cyan-700"
-                    href="https://wa.me/{{ $settings['whatsapp_number'] ?? '6282298900309' }}" target="_blank"
+                    href="https://wa.me/{{ $settings['wa_number'] ?? '6282298900309' }}" target="_blank"
                     rel="noreferrer">
                     💬 Chat WhatsApp
                 </a>

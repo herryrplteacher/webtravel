@@ -44,12 +44,12 @@
             'priceFrom' => $route->price_from,
             'duration' => $route->duration ?? '± 4-6 jam',
             'perks' => $route->facilities->pluck('label')->toArray(),
-            'cover' => $route->cover_image ?? 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80',
+            'cover' => $route->cover_image ? asset('storage/' . $route->cover_image) : 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80',
         ];
     })) !!};
 
         window.SERVICES_DATA = {!! json_encode($services) !!};
-        window.WA_NUMBER = '{{ $settings["whatsapp_number"] ?? "6282298900309" }}';
+        window.WA_NUMBER = '{{ $settings["wa_number"] ?? "6282298900309" }}';
     </script>
 
     <script>

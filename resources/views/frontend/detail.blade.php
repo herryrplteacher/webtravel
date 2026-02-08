@@ -20,7 +20,7 @@
             <!-- Hero Image -->
             <div class="mt-6 overflow-hidden rounded-3xl">
                 <img class="h-80 w-full object-cover"
-                    src="{{ $route->cover_image ?? 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80' }}"
+                    src="{{ $route->cover_image ? asset('storage/' . $route->cover_image) : 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80' }}"
                     alt="{{ $route->from_location->name }} - {{ $route->to_location->name }}" loading="lazy" />
             </div>
 
@@ -156,7 +156,7 @@
                 <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Isi data & lanjut checkout</p>
 
                 <div class="mt-4 flex flex-col gap-3 sm:flex-row">
-                    <a href="https://wa.me/{{ $settings['whatsapp_number'] ?? '6282298900309' }}?text={{ urlencode('Halo, saya ingin booking travel dari ' . $route->from_location->name . ' ke ' . $route->to_location->name . '. Mohon info detail dan ketersediaan.') }}"
+                    <a href="https://wa.me/{{ $settings['wa_number'] ?? '6282298900309' }}?text={{ urlencode('Halo, saya ingin booking travel dari ' . $route->from_location->name . ' ke ' . $route->to_location->name . '. Mohon info detail dan ketersediaan.') }}"
                         target="_blank" rel="noreferrer"
                         class="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 px-6 py-3 text-sm font-semibold text-white hover:from-blue-700 hover:to-cyan-700">
                         💬 Chat WhatsApp
@@ -182,7 +182,7 @@
                         <article
                             class="group overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-slate-800 dark:bg-slate-900">
                             <div class="relative">
-                                <img src="{{ $suggested->cover_image ?? 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80' }}"
+                                <img src="{{ $suggested->cover_image ? asset('storage/' . $suggested->cover_image) : 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80' }}"
                                     alt="{{ $suggested->from_location->name }} - {{ $suggested->to_location->name }}" loading="lazy"
                                     class="h-40 w-full object-cover transition duration-300 group-hover:scale-[1.03]" />
                             </div>

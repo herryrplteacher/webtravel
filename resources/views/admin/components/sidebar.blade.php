@@ -7,7 +7,7 @@
                 data-key="t-menu">Menu</li>
 
             <li>
-                <a href="index.html"
+                <a href="{{ route('dashboard') }}"
                     class="block py-2.5 px-6 text-sm font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">
                     <i data-feather="home" fill="#545a6d33"></i>
                     <span data-key="t-dashboard"> Dashboard</span>
@@ -68,6 +68,14 @@
                         <a href="{{ route('index.wa_lead') }}"
                             class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Nomor
                             Wa</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('index.testimonial') }}"
+                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Testimoni</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('index.gallery') }}"
+                            class="pl-[52.8px] pr-6 py-[6.4px] block text-[13.5px] font-medium text-gray-950 transition-all duration-150 ease-linear hover:text-violet-500 dark:text-gray-300 dark:active:text-white dark:hover:text-white">Galeri</a>
                     </li>
                 </ul>
             </li>

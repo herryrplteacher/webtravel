@@ -54,12 +54,12 @@
             </div>
 
             <div
-                class="mt-6 rounded-3xl border border-slate-200 bg-gradient-to-br from-purple-700 to-fuchsia-700 p-5 text-white dark:border-slate-800">
+                class="mt-6 rounded-3xl border border-slate-200 bg-gradient-to-br from-blue-700 to-cyan-700 p-5 text-white dark:border-slate-800">
                 <p class="text-sm font-semibold">Butuh konfirmasi cepat?</p>
                 <p class="mt-1 text-sm text-white/80">Klik tombol WhatsApp, kirim rute + tanggal + jumlah orang.</p>
                 <div class="mt-4 flex flex-col gap-2 sm:flex-row">
-                    <a class="rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-purple-700 hover:bg-slate-50"
-                        href="https://wa.me/{{ $settings['whatsapp_number'] ?? '6282298900309' }}" target="_blank"
+                    <a class="rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-slate-50"
+                        href="https://wa.me/{{ $settings['wa_number'] ?? '6282298900309' }}" target="_blank"
                         rel="noreferrer">Chat WhatsApp</a>
                     <a class="rounded-2xl border border-white/30 bg-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/15"
                         href="#routes">Lihat rute</a>

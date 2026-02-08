@@ -3,7 +3,7 @@
     <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <a href="{{ route('frontend.index') }}" class="flex items-center gap-2">
             <div
-                class="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br from-purple-600 to-fuchsia-600 text-white shadow-sm">
+                class="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-600 text-white shadow-sm">
                 <span class="text-sm font-bold">{{ substr($settings['site_name'] ?? 'D3', 0, 2) }}</span>
             </div>
             <div class="leading-tight">
@@ -29,9 +29,9 @@
                 <span id="themeIcon">🌙</span>
             </button>
 
-            <a href="https://wa.me/{{ $settings['whatsapp_number'] ?? '6282298900309' }}" target="_blank"
+            <a href="https://wa.me/{{ $settings['wa_number'] ?? '6282298900309' }}" target="_blank"
                 rel="noreferrer"
-                class="hidden rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:from-purple-700 hover:to-fuchsia-700 sm:inline-flex">
+                class="hidden rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:from-blue-700 hover:to-cyan-700 sm:inline-flex">
                 Chat WhatsApp
             </a>
 
@@ -60,8 +60,8 @@
                     href="#gallery">Galeri</a>
                 <a class="mobile-menu-link rounded-2xl px-3 py-2 hover:bg-slate-50 dark:hover:bg-slate-800"
                     href="#reviews">Testimoni</a>
-                <a class="rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-3 py-2 text-center font-semibold text-white hover:from-purple-700 hover:to-fuchsia-700"
-                    href="https://wa.me/{{ $settings['whatsapp_number'] ?? '6282298900309' }}" target="_blank"
+                <a class="rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 px-3 py-2 text-center font-semibold text-white hover:from-blue-700 hover:to-cyan-700"
+                    href="https://wa.me/{{ $settings['wa_number'] ?? '6282298900309' }}" target="_blank"
                     rel="noreferrer">
                     💬 Chat WhatsApp
                 </a>

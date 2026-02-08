@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 // Frontend Routes (Public)
 Route::get('/', [App\Http\Controllers\FrontendController::class, 'index'])->name('frontend.index');
 Route::get('/route/{id}', [App\Http\Controllers\FrontendController::class, 'routeDetail'])->name('frontend.route.detail');
+Route::post('/testimonial', [App\Http\Controllers\FrontendController::class, 'storeTestimonial'])->name('frontend.testimonial.store');
 
 Auth::routes();
 
@@ -110,5 +111,24 @@ Route::prefix('admin')->middleware(['auth', 'role'])->group(function () {
     Route::post('wa-lead', [App\Http\Controllers\WaLeadsController::class, 'store'])->name('store.wa_lead');
     Route::get('wa-lead/{waLead}', [App\Http\Controllers\WaLeadsController::class, 'show'])->name('show.wa_lead')->where('waLead', '[0-9]+');
     Route::delete('wa-lead/{waLead}', [App\Http\Controllers\WaLeadsController::class, 'destroy'])->name('destroy.wa_lead')->where('waLead', '[0-9]+');
+
+    // Testimonial routes
+    Route::get('testimonial', [App\Http\Controllers\Admin\TestimonialController::class, 'index'])->name('index.testimonial');
+    Route::get('testimonial/create', [App\Http\Controllers\Admin\TestimonialController::class, 'create'])->name('create.testimonial');
+    Route::post('testimonial', [App\Http\Controllers\Admin\TestimonialController::class, 'store'])->name('store.testimonial');
+    Route::get('testimonial/{testimonial}', [App\Http\Controllers\Admin\TestimonialController::class, 'show'])->name('show.testimonial')->where('testimonial', '[0-9]+');
+    Route::get('testimonial/{testimonial}/edit', [App\Http\Controllers\Admin\TestimonialController::class, 'edit'])->name('edit.testimonial')->where('testimonial', '[0-9]+');
+    Route::put('testimonial/{testimonial}', [App\Http\Controllers\Admin\TestimonialController::class, 'update'])->name('update.testimonial')->where('testimonial', '[0-9]+');
+    Route::delete('testimonial/{testimonial}', [App\Http\Controllers\Admin\TestimonialController::class, 'destroy'])->name('destroy.testimonial')->where('testimonial', '[0-9]+');
+    Route::patch('testimonial/{testimonial}/toggle', [App\Http\Controllers\Admin\TestimonialController::class, 'toggleStatus'])->name('toggle.testimonial')->where('testimonial', '[0-9]+');
+
+    // Gallery routes
+    Route::get('gallery', [App\Http\Controllers\Admin\GalleryController::class, 'index'])->name('index.gallery');
+    Route::get('gallery/create', [App\Http\Controllers\Admin\GalleryController::class, 'create'])->name('create.gallery');
+    Route::post('gallery', [App\Http\Controllers\Admin\GalleryController::class, 'store'])->name('store.gallery');
+    Route::get('gallery/{gallery}/edit', [App\Http\Controllers\Admin\GalleryController::class, 'edit'])->name('edit.gallery')->where('gallery', '[0-9]+');
+    Route::put('gallery/{gallery}', [App\Http\Controllers\Admin\GalleryController::class, 'update'])->name('update.gallery')->where('gallery', '[0-9]+');
+    Route::delete('gallery/{gallery}', [App\Http\Controllers\Admin\GalleryController::class, 'destroy'])->name('destroy.gallery')->where('gallery', '[0-9]+');
+    Route::patch('gallery/{gallery}/toggle', [App\Http\Controllers\Admin\GalleryController::class, 'toggleStatus'])->name('toggle.gallery')->where('gallery', '[0-9]+');
 
 }); // Tutup prefix group

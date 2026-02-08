@@ -44,12 +44,12 @@
             'priceFrom' => $route->price_from,
             'duration' => $route->duration ?? '± 4-6 jam',
             'perks' => $route->facilities->pluck('label')->toArray(),
-            'cover' => $route->cover_image ?? 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80',
+            'cover' => $route->cover_image ? asset('storage/' . $route->cover_image) : 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80',
         ];
     })) !!};
 
         window.SERVICES_DATA = {!! json_encode($services) !!};
-        window.WA_NUMBER = '{{ $settings["whatsapp_number"] ?? "6282298900309" }}';
+        window.WA_NUMBER = '{{ $settings["wa_number"] ?? "6282298900309" }}';
     </script>
 
     <script>
@@ -74,33 +74,20 @@
         // ===== Cek Tarif Button =====
         if (document.getElementById("cekTarifBtn")) {
             document.getElementById("cekTarifBtn").addEventListener("click", () => {
-                const searchQuery = document.getElementById("qInput").value || "";
+                const kotaAsal = document.getElementById("qInput").value.trim() || "(Kota Asal)";
+                const kotaTujuan = document.getElementById("toInput").value.trim() || "(Kota Tujuan)";
                 const selectedService = document.getElementById("svcSelect").value === "All" ? "Door to Door" : document.getElementById("svcSelect").value;
                 const selectedDate = document.getElementById("dateInput").value || new Date().toISOString().split('T')[0];
                 const pax = travelers;
 
-                let dari = "(Kota Asal)";
-                let ke = "(Kota Tujuan)";
-
-                if (searchQuery) {
-                    if (searchQuery.includes("ke ") || searchQuery.includes("→") || searchQuery.includes("-")) {
-                        const parts = searchQuery.split(/ke |→|-/i);
-                        if (parts.length >= 2) {
-                            dari = parts[0].trim() || "(Kota Asal)";
-                            ke = parts[1].trim() || "(Kota Tujuan)";
-                        }
-                    } else {
-                        dari = searchQuery;
-                    }
-                }
-
-                const message = `Halo admin {{ $settings['site_name'] ?? 'D3 Travel' }}, Cek Info Tarif Travel ${selectedService} tanggal ${selectedDate} dari ${dari} ke ${ke} untuk ${pax} orang penumpang.`;
+                const message = `Halo admin {{ $settings['site_name'] ?? 'D3 Travel' }}, Cek Info Tarif Travel ${selectedService} tanggal ${selectedDate} dari ${kotaAsal} ke ${kotaTujuan} untuk ${pax} orang penumpang.`;
                 window.open(`https://wa.me/${window.WA_NUMBER}?text=${encodeURIComponent(message)}`, "_blank");
             });
         }
 
         // ===== Route filtering and rendering =====
         const qInput = document.getElementById("qInput");
+        const toInput = document.getElementById("toInput");
         const svcSelect = document.getElementById("svcSelect");
         const dateInput = document.getElementById("dateInput");
         const routesGrid = document.getElementById("routesGrid");
@@ -147,7 +134,7 @@
                                                             </a>
 
                                                             <a href="${waLink}" target="_blank" rel="noreferrer"
-                                                              class="flex-1 rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 px-3 py-2 text-center text-xs font-semibold text-white hover:from-purple-700 hover:to-fuchsia-700">
+                                                              class="flex-1 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 px-3 py-2 text-center text-xs font-semibold text-white hover:from-blue-700 hover:to-cyan-700">
                                                               Cek Tarif via WA
                                                             </a>
                                                           </div>
@@ -158,21 +145,24 @@
         }
 
         function renderRoutes() {
-            const q = (qInput.value || "").trim().toLowerCase();
+            const qFrom = (qInput.value || "").trim().toLowerCase();
+            const qTo = (toInput.value || "").trim().toLowerCase();
             const svc = svcSelect.value;
 
             const filtered = window.ROUTES_DATA.filter(r => {
-                const matchQ = !q || [r.title, r.from, r.to, r.service].join(" ").toLowerCase().includes(q);
+                const matchFrom = !qFrom || [r.from, r.title].join(" ").toLowerCase().includes(qFrom);
+                const matchTo = !qTo || [r.to, r.title].join(" ").toLowerCase().includes(qTo);
                 const matchS = (svc === "All") || (r.service === svc);
-                return matchQ && matchS;
+                return matchFrom && matchTo && matchS;
             });
 
             routesGrid.innerHTML = filtered.map(routeCard).join("");
             countLabel.textContent = filtered.length;
         }
 
-        if (qInput && svcSelect && dateInput && routesGrid) {
+        if (qInput && toInput && svcSelect && dateInput && routesGrid) {
             qInput.addEventListener("input", renderRoutes);
+            toInput.addEventListener("input", renderRoutes);
             svcSelect.addEventListener("change", renderRoutes);
             dateInput.addEventListener("change", renderRoutes);
             renderRoutes(); // Initial render

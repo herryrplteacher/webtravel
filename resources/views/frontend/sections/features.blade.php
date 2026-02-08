@@ -25,7 +25,7 @@
             @foreach($features as $feature)
                 <div class="group text-center">
                     <div
-                        class="mx-auto grid h-20 w-20 place-items-center rounded-3xl border-2 border-slate-200 bg-gradient-to-br from-purple-50 to-fuchsia-50 text-4xl transition-all duration-300 group-hover:scale-110 group-hover:border-purple-300 group-hover:shadow-lg dark:border-slate-800 dark:from-purple-950/30 dark:to-fuchsia-950/30 dark:group-hover:border-purple-700">
+                        class="mx-auto grid h-20 w-20 place-items-center rounded-3xl border-2 border-slate-200 bg-gradient-to-br from-blue-50 to-cyan-50 text-4xl transition-all duration-300 group-hover:scale-110 group-hover:border-blue-300 group-hover:shadow-lg dark:border-slate-800 dark:from-blue-950/30 dark:to-cyan-950/30 dark:group-hover:border-blue-700">
                         {{ $feature['icon'] }}
                     </div>
                     <h3 class="mt-4 font-semibold text-slate-900 dark:text-white">{{ $feature['title'] }}</h3>

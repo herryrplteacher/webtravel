@@ -8,4 +8,42 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Custom shadows */
+    --shadow-soft: 0 14px 40px rgba(2, 6, 23, 0.10);
+
+    /* Custom animations */
+    --animate-floaty: floaty 8s ease-in-out infinite;
+    --animate-fadeUp: fadeUp .6s ease-out both;
+}
+
+@keyframes floaty {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+}
+
+@keyframes fadeUp {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile menu transitions */
+#mobileMenu {
+    transition: all 0.3s ease-in-out;
+    max-height: 0;
+    opacity: 0;
+}
+
+#mobileMenu:not(.hidden) {
+    max-height: 500px;
+    opacity: 1;
+}
+
+#menuIcon {
+    transition: transform 0.2s ease;
+    display: inline-block;
+}
+
+.mobile-menu-link {
+    transition: all 0.2s ease;
 }

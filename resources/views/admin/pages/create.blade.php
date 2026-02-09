@@ -44,7 +44,7 @@
                             </h6>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('store.page') }}" method="POST">
+                            <form action="{{ route('store.page') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="mb-4">
@@ -71,6 +71,67 @@
                                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                     @enderror
                                     <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Anda dapat menggunakan HTML untuk format konten</p>
+                                </div>
+
+                                <!-- About Us Extra Fields -->
+                                <div class="mb-4 p-4 border border-dashed border-violet-300 dark:border-violet-600 rounded bg-violet-50/50 dark:bg-violet-900/10">
+                                    <h6 class="mb-4 text-sm font-semibold text-violet-700 dark:text-violet-300">
+                                        <i class="fas fa-info-circle mr-1"></i> Data Tambahan (About Us)
+                                    </h6>
+
+                                    <!-- Statistik -->
+                                    <div class="mb-4">
+                                        <label class="block mb-2 font-medium text-gray-700 dark:text-gray-100">Statistik</label>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                            @for ($i = 0; $i < 4; $i++)
+                                                <div class="flex gap-2">
+                                                    <input type="text" name="stat_value[]"
+                                                        value="{{ old('stat_value.' . $i) }}"
+                                                        placeholder="Nilai (cth: 10+)"
+                                                        class="w-1/3 py-2 px-3 rounded border-gray-300 focus:border-violet-500 focus:ring focus:ring-violet-500/20 dark:bg-zinc-700/50 dark:border-zinc-600 dark:text-zinc-100 text-sm">
+                                                    <input type="text" name="stat_label[]"
+                                                        value="{{ old('stat_label.' . $i) }}"
+                                                        placeholder="Label (cth: Tahun pengalaman)"
+                                                        class="w-2/3 py-2 px-3 rounded border-gray-300 focus:border-violet-500 focus:ring focus:ring-violet-500/20 dark:bg-zinc-700/50 dark:border-zinc-600 dark:text-zinc-100 text-sm">
+                                                </div>
+                                            @endfor
+                                        </div>
+                                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Kosongkan jika tidak diperlukan</p>
+                                    </div>
+
+                                    <!-- Visi & Misi -->
+                                    <div class="mb-4">
+                                        <label class="block mb-2 font-medium text-gray-700 dark:text-gray-100" for="visi_misi">
+                                            Visi & Misi
+                                        </label>
+                                        <textarea
+                                            class="w-full placeholder:text-sm py-2 px-3 rounded border-gray-300 focus:border-violet-500 focus:ring focus:ring-violet-500/20 dark:bg-zinc-700/50 dark:border-zinc-600 dark:text-zinc-100"
+                                            id="visi_misi" name="visi_misi" rows="3"
+                                            placeholder="Masukkan visi & misi">{{ old('visi_misi') }}</textarea>
+                                    </div>
+
+                                    <!-- Gambar -->
+                                    <div class="mb-2">
+                                        <label class="block mb-2 font-medium text-gray-700 dark:text-gray-100">Gambar About Us</label>
+                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                            <div>
+                                                <label class="block mb-1 text-xs text-gray-500 dark:text-gray-400">Gambar Utama</label>
+                                                <input type="file" name="image_main" accept="image/*"
+                                                    class="w-full text-sm py-1.5 px-3 rounded border border-gray-300 dark:border-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-100 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:bg-violet-100 file:text-violet-700 file:text-xs">
+                                            </div>
+                                            <div>
+                                                <label class="block mb-1 text-xs text-gray-500 dark:text-gray-400">Gambar Kedua</label>
+                                                <input type="file" name="image_second" accept="image/*"
+                                                    class="w-full text-sm py-1.5 px-3 rounded border border-gray-300 dark:border-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-100 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:bg-violet-100 file:text-violet-700 file:text-xs">
+                                            </div>
+                                            <div>
+                                                <label class="block mb-1 text-xs text-gray-500 dark:text-gray-400">Gambar Ketiga</label>
+                                                <input type="file" name="image_third" accept="image/*"
+                                                    class="w-full text-sm py-1.5 px-3 rounded border border-gray-300 dark:border-zinc-600 dark:bg-zinc-700/50 dark:text-zinc-100 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:bg-violet-100 file:text-violet-700 file:text-xs">
+                                            </div>
+                                        </div>
+                                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Format: JPG, PNG, WebP. Maks: 2MB per gambar</p>
+                                    </div>
                                 </div>
 
                                 <div class="mb-6">

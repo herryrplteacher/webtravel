@@ -26,7 +26,16 @@ class PageSeeder extends Seeder
             [
                 'title' => 'Tentang Kami',
                 'slug' => 'tentang-kami',
-                'content' => '<h2>Tentang Web Travel</h2><p>Web Travel adalah perusahaan penyedia layanan travel terpercaya yang telah melayani ribuan pelanggan di seluruh Indonesia. Kami berkomitmen untuk memberikan pengalaman perjalanan yang nyaman, aman, dan terjangkau.</p><p>Dengan armada bus yang modern dan terawat, serta driver yang berpengalaman, kami siap mengantarkan Anda ke berbagai destinasi dengan aman dan tepat waktu.</p>',
+                'content' => '<p><strong>D3 Travel</strong> adalah layanan travel terpercaya yang telah melayani perjalanan antar kota sejak lama. Kami berkomitmen memberikan pengalaman perjalanan yang nyaman, aman, dan tepat waktu.</p><p>Dengan armada terawat, driver berpengalaman, dan sistem booking yang mudah, kami siap mengantarkan Anda ke tujuan dengan pelayanan terbaik.</p>',
+                'meta' => [
+                    'stats' => [
+                        ['value' => '10+', 'label' => 'Tahun pengalaman'],
+                        ['value' => '15+', 'label' => 'Armada tersedia'],
+                        ['value' => '1000+', 'label' => 'Pelanggan puas'],
+                        ['value' => '24/7', 'label' => 'Layanan siaga'],
+                    ],
+                    'visi_misi' => 'Menjadi pilihan utama layanan travel dengan standar kualitas terbaik, memberikan kenyamanan dan keamanan di setiap perjalanan.',
+                ],
                 'is_published' => true,
                 'created_by' => $user->id,
             ],

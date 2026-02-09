@@ -19,6 +19,7 @@ class Page extends Model
         'title',
         'slug',
         'content',
+        'meta',
         'is_published',
         'created_by',
     ];
@@ -32,6 +33,7 @@ class Page extends Model
     {
         return [
             'is_published' => 'boolean',
+            'meta' => 'array',
         ];
     }
 

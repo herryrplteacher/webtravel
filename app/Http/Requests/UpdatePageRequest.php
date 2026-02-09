@@ -25,6 +25,14 @@ class UpdatePageRequest extends FormRequest
             'title' => ['required', 'string', 'max:150'],
             'content' => ['nullable', 'string'],
             'is_published' => ['nullable', 'boolean'],
+            'image_main' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'image_second' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'image_third' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'stat_value' => ['nullable', 'array', 'max:4'],
+            'stat_value.*' => ['nullable', 'string', 'max:20'],
+            'stat_label' => ['nullable', 'array', 'max:4'],
+            'stat_label.*' => ['nullable', 'string', 'max:100'],
+            'visi_misi' => ['nullable', 'string', 'max:1000'],
         ];
     }
 

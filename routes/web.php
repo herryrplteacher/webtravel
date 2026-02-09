@@ -2,6 +2,22 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Fallback storage route untuk hosting yang tidak support symlink
+Route::get('/storage/{path}', function (string $path) {
+    $fullPath = storage_path('app/public/' . $path);
+
+    if (! file_exists($fullPath)) {
+        abort(404);
+    }
+
+    $mimeType = mime_content_type($fullPath) ?: 'application/octet-stream';
+
+    return response()->file($fullPath, [
+        'Content-Type' => $mimeType,
+        'Cache-Control' => 'public, max-age=31536000',
+    ]);
+})->where('path', '.*')->name('storage.serve');
+
 // Frontend Routes (Public)
 Route::get('/', [App\Http\Controllers\FrontendController::class, 'index'])->name('frontend.index');
 Route::get('/route/{id}', [App\Http\Controllers\FrontendController::class, 'routeDetail'])->name('frontend.route.detail');

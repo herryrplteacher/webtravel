@@ -33,6 +33,67 @@
 
 @push('scripts')
     <script>
+        // ===== Hero Promotion Slider =====
+        (function() {
+            const slides = document.querySelectorAll('.hero-slide');
+            const infos = document.querySelectorAll('.hero-promo-info');
+            const dots = document.querySelectorAll('.hero-dot');
+            const promoBtn = document.getElementById('heroPromoBtn');
+
+            if (slides.length <= 1) return;
+
+            const promoData = {!! isset($promotions) ? json_encode($promotions->map(function ($p) use ($settings) {
+                return [
+                    'button_text' => $p->button_text ?: 'Chat',
+                    'button_url' => $p->button_url ?: 'https://wa.me/' . ($settings['wa_number'] ?? '6282298900309'),
+                ];
+            })) : '[]' !!};
+
+            let current = 0;
+            let interval;
+
+            function goTo(index) {
+                slides[current].classList.remove('opacity-100');
+                slides[current].classList.add('opacity-0');
+                infos[current].classList.add('hidden');
+                if (dots[current]) {
+                    dots[current].classList.remove('bg-blue-600');
+                    dots[current].classList.add('bg-slate-300', 'dark:bg-slate-600');
+                }
+
+                current = index;
+
+                slides[current].classList.remove('opacity-0');
+                slides[current].classList.add('opacity-100');
+                infos[current].classList.remove('hidden');
+                if (dots[current]) {
+                    dots[current].classList.remove('bg-slate-300', 'dark:bg-slate-600');
+                    dots[current].classList.add('bg-blue-600');
+                }
+
+                if (promoBtn && promoData[current]) {
+                    promoBtn.textContent = promoData[current].button_text;
+                    promoBtn.href = promoData[current].button_url;
+                }
+            }
+
+            function next() {
+                goTo((current + 1) % slides.length);
+            }
+
+            dots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    clearInterval(interval);
+                    goTo(parseInt(this.dataset.index));
+                    interval = setInterval(next, 5000);
+                });
+            });
+
+            interval = setInterval(next, 5000);
+        })();
+    </script>
+
+    <script>
         // Make routes data available to JavaScript
         window.ROUTES_DATA = {!! json_encode($routes->map(function ($route) {
         return [

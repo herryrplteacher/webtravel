@@ -113,27 +113,84 @@
         <!-- Hero Visual -->
         <div
             class="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-soft dark:border-slate-800 dark:bg-slate-900 animate-fadeUp">
-            <div
-                class="absolute inset-0 bg-gradient-to-br from-slate-900/10 via-transparent to-indigo-500/10 dark:from-white/5 dark:to-sky-500/10">
-            </div>
-            <img class="h-[440px] w-full object-cover"
-                src="{{ $settings['hero_image'] ?? 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80' }}"
-                alt="Travel" loading="lazy" />
-            <div
-                class="absolute bottom-4 left-4 right-4 rounded-3xl border border-white/30 bg-white/70 p-4 backdrop-blur dark:bg-slate-950/50 dark:border-slate-800/60">
-                <div class="flex items-center justify-between gap-3">
-                    <div>
-                        <p class="text-xs font-medium text-slate-600 dark:text-slate-300">Highlight</p>
-                        <p class="text-sm font-semibold">Door-to-door nyaman</p>
-                        <p class="text-xs text-slate-600 dark:text-slate-300">Konfirmasi cepat via WhatsApp</p>
-                    </div>
-                    <a class="rounded-2xl bg-white px-3 py-2 text-sm font-semibold text-blue-700 shadow-sm hover:bg-slate-50 dark:bg-slate-900 dark:text-blue-300 dark:hover:bg-slate-800"
-                        href="https://wa.me/{{ $settings['wa_number'] ?? '6282298900309' }}" target="_blank"
-                        rel="noreferrer">
-                        Chat
-                    </a>
+
+            @if(isset($promotions) && $promotions->count() > 0)
+                {{-- Promotion Slider --}}
+                <div id="heroSlider" class="relative h-[440px] w-full">
+                    @foreach($promotions as $promo)
+                        <div class="hero-slide absolute inset-0 transition-opacity duration-700 {{ $loop->first ? 'opacity-100 z-[2]' : 'opacity-0 z-[1]' }}">
+                            <img class="h-[440px] w-full object-cover"
+                                src="{{ asset('storage/' . $promo->image) }}"
+                                alt="{{ $promo->title }}" loading="{{ $loop->first ? 'eager' : 'lazy' }}" />
+                        </div>
+                    @endforeach
                 </div>
-            </div>
+
+                {{-- Gradient overlay --}}
+                <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-[3] pointer-events-none"></div>
+
+                {{-- Promotion Info Overlay --}}
+                <div
+                    class="absolute bottom-4 left-4 right-4 rounded-3xl border border-white/30 bg-white/70 p-4 backdrop-blur dark:bg-slate-950/50 dark:border-slate-800/60 z-[5]">
+                    <div class="flex items-center justify-between gap-3">
+                        <div id="heroPromoInfo">
+                            @foreach($promotions as $promo)
+                                <div class="hero-promo-info {{ $loop->first ? '' : 'hidden' }}">
+                                    <p class="text-xs font-medium text-slate-600 dark:text-slate-300">
+                                        🔥 Promosi
+                                        @if($promo->end_date)
+                                            <span class="ml-1 text-red-500">s/d {{ $promo->end_date->format('d M Y') }}</span>
+                                        @endif
+                                    </p>
+                                    <p class="text-sm font-semibold">{{ $promo->title }}</p>
+                                    @if($promo->description)
+                                        <p class="text-xs text-slate-600 dark:text-slate-300">{{ Str::limit($promo->description, 60) }}</p>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="flex items-center gap-2">
+                            @if($promotions->count() > 1)
+                                <div class="flex gap-1.5 mr-2">
+                                    @foreach($promotions as $promo)
+                                        <button class="hero-dot h-2.5 w-2.5 rounded-full transition-colors {{ $loop->first ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600' }}"
+                                            data-index="{{ $loop->index }}"></button>
+                                    @endforeach
+                                </div>
+                            @endif
+                            @php
+                                $activePromo = $promotions->first();
+                                $promoLink = $activePromo->button_url ?: 'https://wa.me/' . ($settings['wa_number'] ?? '6282298900309');
+                            @endphp
+                            <a id="heroPromoBtn" class="rounded-2xl bg-white px-3 py-2 text-sm font-semibold text-blue-700 shadow-sm hover:bg-slate-50 dark:bg-slate-900 dark:text-blue-300 dark:hover:bg-slate-800 whitespace-nowrap"
+                                href="{{ $promoLink }}" target="_blank"
+                                rel="noreferrer">
+                                {{ $activePromo->button_text ?: 'Chat' }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @else
+                <div class="absolute inset-0 bg-gradient-to-br from-slate-900/10 via-transparent to-indigo-500/10 dark:from-white/5 dark:to-sky-500/10 z-10 pointer-events-none"></div>
+                <img class="h-[440px] w-full object-cover"
+                    src="{{ $settings['hero_image'] ?? 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80' }}"
+                    alt="Travel" loading="lazy" />
+                <div
+                    class="absolute bottom-4 left-4 right-4 rounded-3xl border border-white/30 bg-white/70 p-4 backdrop-blur dark:bg-slate-950/50 dark:border-slate-800/60 z-20">
+                    <div class="flex items-center justify-between gap-3">
+                        <div>
+                            <p class="text-xs font-medium text-slate-600 dark:text-slate-300">Highlight</p>
+                            <p class="text-sm font-semibold">Door-to-door nyaman</p>
+                            <p class="text-xs text-slate-600 dark:text-slate-300">Konfirmasi cepat via WhatsApp</p>
+                        </div>
+                        <a class="rounded-2xl bg-white px-3 py-2 text-sm font-semibold text-blue-700 shadow-sm hover:bg-slate-50 dark:bg-slate-900 dark:text-blue-300 dark:hover:bg-slate-800"
+                            href="https://wa.me/{{ $settings['wa_number'] ?? '6282298900309' }}" target="_blank"
+                            rel="noreferrer">
+                            Chat
+                        </a>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 </section>

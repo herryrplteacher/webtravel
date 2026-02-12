@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 // Fallback storage route untuk hosting yang tidak support symlink
 Route::get('/storage/{path}', function (string $path) {
-    $fullPath = storage_path('app/public/' . $path);
+    $fullPath = storage_path('app/public/'.$path);
 
     if (! file_exists($fullPath)) {
         abort(404);
@@ -137,6 +137,16 @@ Route::prefix('admin')->middleware(['auth', 'role'])->group(function () {
     Route::put('testimonial/{testimonial}', [App\Http\Controllers\Admin\TestimonialController::class, 'update'])->name('update.testimonial')->where('testimonial', '[0-9]+');
     Route::delete('testimonial/{testimonial}', [App\Http\Controllers\Admin\TestimonialController::class, 'destroy'])->name('destroy.testimonial')->where('testimonial', '[0-9]+');
     Route::patch('testimonial/{testimonial}/toggle', [App\Http\Controllers\Admin\TestimonialController::class, 'toggleStatus'])->name('toggle.testimonial')->where('testimonial', '[0-9]+');
+
+    // Promotion routes
+    Route::get('promotion', [App\Http\Controllers\Admin\PromotionController::class, 'index'])->name('index.promotion');
+    Route::get('promotion/create', [App\Http\Controllers\Admin\PromotionController::class, 'create'])->name('create.promotion');
+    Route::post('promotion', [App\Http\Controllers\Admin\PromotionController::class, 'store'])->name('store.promotion');
+    Route::get('promotion/{promotion}', [App\Http\Controllers\Admin\PromotionController::class, 'show'])->name('show.promotion')->where('promotion', '[0-9]+');
+    Route::get('promotion/{promotion}/edit', [App\Http\Controllers\Admin\PromotionController::class, 'edit'])->name('edit.promotion')->where('promotion', '[0-9]+');
+    Route::put('promotion/{promotion}', [App\Http\Controllers\Admin\PromotionController::class, 'update'])->name('update.promotion')->where('promotion', '[0-9]+');
+    Route::delete('promotion/{promotion}', [App\Http\Controllers\Admin\PromotionController::class, 'destroy'])->name('destroy.promotion')->where('promotion', '[0-9]+');
+    Route::patch('promotion/{promotion}/toggle', [App\Http\Controllers\Admin\PromotionController::class, 'toggleStatus'])->name('toggle.promotion')->where('promotion', '[0-9]+');
 
     // Gallery routes
     Route::get('gallery', [App\Http\Controllers\Admin\GalleryController::class, 'index'])->name('index.gallery');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TestimonialRequest;
 use App\Models\Gallery;
 use App\Models\Page;
+use App\Models\Promotion;
 use App\Models\Route;
 use App\Models\Service;
 use App\Models\Setting;
@@ -46,7 +47,13 @@ class FrontendController extends Controller
             ->latest()
             ->get();
 
-        return view('frontend.index', compact('routes', 'services', 'settings', 'aboutPage', 'testimonials', 'galleries'));
+        // Get active promotions for hero section
+        $promotions = Promotion::active()
+            ->orderBy('sort_order')
+            ->latest()
+            ->get();
+
+        return view('frontend.index', compact('routes', 'services', 'settings', 'aboutPage', 'testimonials', 'galleries', 'promotions'));
     }
 
     /**
